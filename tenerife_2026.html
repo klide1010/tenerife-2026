@@ -444,7 +444,9 @@ const GIORNI = [
     lat: 28.09, lon: -16.74, zona: 'sud',
     blocchi: [
       { ora: '05:50', fine: '09:25', tipo: 'volo', titolo: 'Volo FR2830 Bergamo → Tenerife Sud', desc: 'Partenza 05:50 ora italiana, arrivo 09:25 ora locale (4h35 di volo). Posti 29E/29D.', durata: 275 },
-      { ora: '09:25', fine: '12:00', tipo: 'davide', icon: '🧳', titolo: 'Arrivo a Tenerife', desc: 'Recupero bagagli, trasferimento, check-in a Lella\'s Home e caffè.', tag: 'arrivo', stima: true,
+      { ora: '09:25', fine: '10:30', tipo: 'logistica', icon: '🧳', titolo: 'Sbarco, bagagli e trasferimento', desc: 'Ritiro bagagli (~30 min) e ~25 min di strada da TFS a Playa Paraíso.', stima: true,
+        places: [{ label: 'Aeroporto Tenerife Sur', q: 'Aeropuerto Tenerife Sur' }] },
+      { ora: '10:30', fine: '12:00', tipo: 'davide', icon: '☕', titolo: 'Check-in a Lella\'s Home e caffè', desc: 'Si molla tutto, si respira, poi mare.', tag: 'arrivo', stima: true,
         places: [{ label: "Lella's Home · Playa Paraíso", q: 'Playa Paraiso Adeje Tenerife' }] },
       { ora: '12:00', fine: '15:30', tipo: 'davide', icon: '🏖', titolo: 'Playa del Duque', desc: 'Pranzo sul mare, primo bagno e sole.', tag: 'mare', stima: true,
         places: [{ label: 'Playa del Duque', q: 'Playa del Duque Tenerife' }] },
