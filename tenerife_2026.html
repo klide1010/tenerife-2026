@@ -363,6 +363,7 @@ a { color: var(--ocean); }
 <div class="info-row"><span class="info-key">Notti</span><span class="info-val">4 · 15 → 19 ottobre</span></div>
 <div class="info-row"><span class="info-key">Cos'è</span><span class="info-val">Base indipendente, terrazza con vista</span></div>
 <div class="info-row"><span class="info-key">Link</span><span class="info-val"><a href="https://lellashome.kross.travel/lella-s-home" target="_blank">lellashome.kross.travel ↗</a></span></div>
+<div class="info-row"><span class="info-key">Pin esatto</span><span class="info-val"><a class="nav-point" data-day="0" data-point="1" data-label="Lella's Home" data-nav="28.1262268,-16.7729582" data-maps="https://www.google.com/maps/search/?api=1&query=28.1262268,-16.7729582" href="#">Calle El Horno, Playa Paraíso ↗</a></span></div>
 <div class="info-row"><span class="info-key">Mappa</span><span class="info-val"><a class="nav-point" data-day="0" data-point="0" data-label="Playa Paraíso" data-maps="https://www.google.com/maps/search/?api=1&query=Playa+Paraiso+Adeje+Tenerife" href="#">Playa Paraíso ↗</a></span></div>
 </div>
 <div class="info-card">
@@ -435,6 +436,7 @@ a { color: var(--ocean); }
    Per colmare uno slot libero: cambia tipo in 'noi', metti titolo/desc.
    ===================================================================== */
 const MAPS = q => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q);
+const LELLA_LL = '28.1262268,-16.7729582';   // pin Google Maps di Lella's Home (Calle El Horno, Playa Paraíso)
 
 const GIORNI = [
   {
@@ -447,13 +449,13 @@ const GIORNI = [
       { ora: '09:25', fine: '10:30', tipo: 'logistica', icon: '🧳', titolo: 'Sbarco, bagagli e trasferimento', desc: 'Ritiro bagagli (~30 min) e ~25 min di strada da TFS a Playa Paraíso.', stima: true,
         places: [{ label: 'Aeroporto Tenerife Sur', q: 'Aeropuerto Tenerife Sur' }] },
       { ora: '10:30', fine: '12:00', tipo: 'davide', icon: '☕', titolo: 'Check-in a Lella\'s Home e caffè', desc: 'Si molla tutto, si respira, poi mare.', tag: 'arrivo', stima: true,
-        places: [{ label: "Lella's Home · Playa Paraíso", q: 'Playa Paraiso Adeje Tenerife' }] },
+        places: [{ label: "Lella's Home", q: LELLA_LL, ll: LELLA_LL }] },
       { ora: '12:00', fine: '15:30', tipo: 'davide', icon: '🏖', titolo: 'Playa del Duque', desc: 'Pranzo sul mare, primo bagno e sole.', tag: 'mare', stima: true,
         places: [{ label: 'Playa del Duque', q: 'Playa del Duque Tenerife' }] },
       { id: 'd1-pom', ora: '15:30', fine: '19:00', tipo: 'libero', icon: '⬜', titolo: 'Pomeriggio libero', desc: 'Davide non ha previsto nulla tra il Duque e l\'aperitivo.' },
       { ora: '19:00', fine: '23:00', tipo: 'davide', icon: '🍹', titolo: 'Aperitivo + cena fuori', desc: 'Prima sera semplice e bella.', tag: 'fuori', stima: true },
     ],
-    notte: { nome: "Lella's Home", dove: 'Playa Paraíso · notte 1 di 4', q: 'Playa Paraiso Adeje Tenerife' },
+    notte: { nome: "Lella's Home", dove: 'Playa Paraíso · notte 1 di 4', q: LELLA_LL, ll: LELLA_LL },
   },
   {
     num: 2, data: '2026-10-16', label: 'Ven 16 Ott', giorno: 'Venerdì 16 Ottobre',
@@ -471,7 +473,7 @@ const GIORNI = [
       { ora: '19:30', fine: '23:30', tipo: 'davide', icon: '🍷', titolo: 'Cena da Davide ad Adeje', desc: 'Doccia, vino, tavola lunga e nessun ristorante. Merlino supervisiona.', tag: 'casa', stima: true,
         places: [{ label: 'Adeje', q: 'Adeje Tenerife' }] },
     ],
-    notte: { nome: "Lella's Home", dove: 'Playa Paraíso · notte 2 di 4', q: 'Playa Paraiso Adeje Tenerife' },
+    notte: { nome: "Lella's Home", dove: 'Playa Paraíso · notte 2 di 4', q: LELLA_LL, ll: LELLA_LL },
   },
   {
     num: 3, data: '2026-10-17', label: 'Sab 17 Ott', giorno: 'Sabato 17 Ottobre',
@@ -493,7 +495,7 @@ const GIORNI = [
       { ora: '20:30', fine: '23:30', tipo: 'davide', icon: '🔥', titolo: 'CHAR Fuego y Brasas', desc: 'La cena importante del viaggio.', tag: 'da prenotare', book: true, stima: true,
         places: [{ label: 'CHAR Fuego y Brasas', q: 'CHAR Fuego y Brasas Tenerife' }] },
     ],
-    notte: { nome: "Lella's Home", dove: 'Playa Paraíso · notte 3 di 4', q: 'Playa Paraiso Adeje Tenerife' },
+    notte: { nome: "Lella's Home", dove: 'Playa Paraíso · notte 3 di 4', q: LELLA_LL, ll: LELLA_LL },
   },
   {
     num: 4, data: '2026-10-18', label: 'Dom 18 Ott', giorno: 'Domenica 18 Ottobre',
@@ -512,7 +514,7 @@ const GIORNI = [
       { ora: '19:00', fine: '22:00', tipo: 'davide', icon: '🍷', titolo: 'Ultima cena da Davide ad Adeje', desc: 'Presto. Poi valigie e qualche ora di sonno.', tag: 'casa', stima: true,
         places: [{ label: 'Adeje', q: 'Adeje Tenerife' }] },
     ],
-    notte: { nome: "Lella's Home", dove: 'Playa Paraíso · notte 4 di 4 · sveglia ~03:15', q: 'Playa Paraiso Adeje Tenerife' },
+    notte: { nome: "Lella's Home", dove: 'Playa Paraíso · notte 4 di 4 · sveglia ~03:15', q: LELLA_LL, ll: LELLA_LL },
   },
   {
     num: 5, data: '2026-10-19', label: 'Lun 19 Ott', giorno: 'Lunedì 19 Ottobre',
@@ -568,7 +570,7 @@ function placeLinks(b, dayNum, counter) {
   if (!b.places || !b.places.length) return '';
   return ' ' + b.places.map(p => {
     const idx = counter.n++;
-    return `<a class="place-link nav-point" data-day="${dayNum}" data-point="${idx}" data-label="${esc(p.label)}" data-maps="${MAPS(p.q)}" href="${MAPS(p.q)}" target="_blank">📍 ${esc(p.label)}</a>`;
+    return `<a class="place-link nav-point" data-day="${dayNum}" data-point="${idx}" data-label="${esc(p.label)}" data-nav="${esc(p.ll || p.label + ' Tenerife')}" data-maps="${MAPS(p.q)}" href="${MAPS(p.q)}" target="_blank">📍 ${esc(p.label)}</a>`;
   }).join(' · ');
 }
 
@@ -622,7 +624,7 @@ function pianoRender() {
     });
     if (g.notte) {
       const idx = counter.n++;
-      html += `<div class="pernottamento">🛏 <div><strong><a class="place-link nav-point" data-day="${g.num}" data-point="${idx}" data-label="${esc(g.notte.nome)}" data-maps="${MAPS(g.notte.q)}" href="${MAPS(g.notte.q)}" target="_blank">${esc(g.notte.nome)}</a></strong>${esc(g.notte.dove)}</div></div>`;
+      html += `<div class="pernottamento">🛏 <div><strong><a class="place-link nav-point" data-day="${g.num}" data-point="${idx}" data-label="${esc(g.notte.nome)}" data-nav="${esc(g.notte.ll || g.notte.nome + ' Tenerife')}" data-maps="${MAPS(g.notte.q)}" href="${MAPS(g.notte.q)}" target="_blank">${esc(g.notte.nome)}</a></strong>${esc(g.notte.dove)}</div></div>`;
     }
     html += `</div></div>`;
   });
@@ -879,13 +881,13 @@ const prevList = document.getElementById('maps-prev-list');
 function bindNavPoints() {
   navPoints.length = 0;
   document.querySelectorAll('.nav-point').forEach(el => {
-    navPoints.push({ day: +el.dataset.day, point: +el.dataset.point, label: el.dataset.label, maps: el.dataset.maps });
+    navPoints.push({ day: +el.dataset.day, point: +el.dataset.point, label: el.dataset.label, nav: el.dataset.nav || el.dataset.label + ' Tenerife', maps: el.dataset.maps });
     if (el._bound) return; el._bound = true;
     el.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); openMapsModal(el); });
   });
 }
 function openMapsModal(el) {
-  currentTarget = { day: +el.dataset.day, point: +el.dataset.point, label: el.dataset.label, maps: el.dataset.maps };
+  currentTarget = { day: +el.dataset.day, point: +el.dataset.point, label: el.dataset.label, nav: el.dataset.nav || el.dataset.label + ' Tenerife', maps: el.dataset.maps };
   document.getElementById('maps-modal-sub').textContent = currentTarget.label;
   prevList.innerHTML = ''; prevList.classList.add('maps-hidden');
   document.getElementById('maps-main-actions').classList.remove('maps-hidden');
@@ -905,7 +907,7 @@ document.getElementById('maps-nav-btn').onclick = () => {
     if (seen.has(p.label)) return; seen.add(p.label);
     const btn = document.createElement('button');
     btn.innerText = `[D${p.day}] ${p.label} → ${currentTarget.label}`;
-    btn.onclick = () => window.open(`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(p.label + ' Tenerife')}&destination=${encodeURIComponent(currentTarget.label + ' Tenerife')}`, '_blank');
+    btn.onclick = () => window.open(`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(p.nav)}&destination=${encodeURIComponent(currentTarget.nav)}`, '_blank');
     prevList.appendChild(btn);
   });
   if (!previous.length) { const b = document.createElement('button'); b.innerText = 'Nessun punto precedente disponibile'; b.disabled = true; prevList.appendChild(b); }
