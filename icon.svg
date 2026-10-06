@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0b3a7a"/><stop offset="60%" stop-color="#0a2d5e"/><stop offset="100%" stop-color="#061722"/></linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2fc4e6"/><stop offset="100%" stop-color="#1a7fa0"/></linearGradient>
+    <linearGradient id="mnt" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3a2a33"/><stop offset="100%" stop-color="#1b1b2a"/></linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#sky)"/>
+  <circle cx="356" cy="168" r="66" fill="#f6c445"/>
+  <circle cx="356" cy="168" r="92" fill="#f6c445" opacity="0.18"/>
+  <path d="M60 372 L220 150 L262 196 L300 164 L452 372 Z" fill="url(#mnt)"/>
+  <path d="M220 150 L250 192 L262 196 L285 180 L300 164 L270 128 Z" fill="#eef2f6" opacity="0.9"/>
+  <rect x="0" y="372" width="512" height="140" fill="url(#sea)"/>
+  <path d="M0 400 Q40 384 80 400 T160 400 T240 400 T320 400 T400 400 T480 400 T560 400" fill="none" stroke="#ffffff" stroke-width="10" stroke-opacity="0.55" stroke-linecap="round"/>
+  <path d="M0 446 Q40 430 80 446 T160 446 T240 446 T320 446 T400 446 T480 446 T560 446" fill="none" stroke="#ffffff" stroke-width="8" stroke-opacity="0.35" stroke-linecap="round"/>
+</svg>

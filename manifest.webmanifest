@@ -1,0 +1,17 @@
+{
+  "name": "Tenerife 2026",
+  "short_name": "Tenerife",
+  "description": "Piano viaggio Tenerife · 15–19 Ottobre 2026 · Andrea & Michela",
+  "start_url": "./tenerife_2026.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#061722",
+  "theme_color": "#0b3a7a",
+  "lang": "it",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

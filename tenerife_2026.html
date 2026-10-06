@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" name="viewport"/>
+<meta content="#061722" name="theme-color"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="Piano viaggio Tenerife · 15–19 Ottobre 2026 · Andrea & Michela" name="description"/>
+<title>Tenerife 2026</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"/>
+<link id="app-manifest" rel="manifest" href="manifest.webmanifest"/>
+<link id="fav-icon" rel="icon" type="image/svg+xml"/>
+<link id="apple-icon" rel="apple-touch-icon" href="apple-touch-icon.png"/>
+<style>
+:root {
+  --paper: #061722;
+  --card: #0d2433;
+  --surface2: #143447;
+  --surface3: #1b4259;
+  --ocean: #2fc4e6;
+  --ocean-dark: #1a9cbb;
+  --sun: #f6c445;
+  --sun-light: #ffd978;
+  --lava: #e0532b;
+  --aqua: #2dd4a8;
+  --sand: #e8d9b8;
+  --text: #dbeaf2;
+  --muted: #7fa3b5;
+  --muted-light: #aac7d6;
+  --border: rgba(47,196,230,0.12);
+  --border2: rgba(47,196,230,0.22);
+  --radius: 16px;
+  --font-display: 'Bebas Neue', 'Impact', sans-serif;
+  --font-body: 'Nunito', system-ui, sans-serif;
+  --font-mono: 'Nunito', system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { background: var(--paper); }
+body {
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--text);
+  min-height: 100vh;
+  max-width: 480px;
+  margin: 0 auto;
+  position: relative;
+  overflow-x: clip;
+}
+a { color: var(--ocean); }
+
+/* ===== HEADER ===== */
+.app-header {
+  background: linear-gradient(160deg, #0b3a7a 0%, #0a2d5e 55%, #061722 100%);
+  color: white;
+  padding: calc(44px + env(safe-area-inset-top)) 24px 26px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 4px solid var(--sun);
+}
+/* Bande rosso/giallo (Spagna) come decorazione tenue */
+.app-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(170,21,27,0.18) 0%, rgba(170,21,27,0.18) 22%, rgba(241,191,0,0.14) 22%, rgba(241,191,0,0.14) 78%, rgba(170,21,27,0.18) 78%, rgba(170,21,27,0.18) 100%);
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.6) 70%, #000 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.6) 70%, #000 100%);
+  pointer-events: none;
+}
+.app-header::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 50% 60% at 95% -5%, rgba(246,196,69,0.35) 0%, transparent 60%),
+              radial-gradient(ellipse 45% 45% at 0% 110%, rgba(47,196,230,0.18) 0%, transparent 55%);
+  pointer-events: none;
+}
+.header-eyebrow { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.65); margin-bottom: 8px; position: relative; z-index: 1; }
+.header-title { font-family: var(--font-display); font-size: 54px; font-weight: 400; line-height: 1; color: white; margin-bottom: 6px; letter-spacing: 2px; position: relative; z-index: 1; text-shadow: 0 2px 24px rgba(0,0,0,0.35); }
+.header-title em { font-style: normal; color: var(--sun-light); }
+.header-sub { font-size: 11px; color: rgba(255,255,255,0.7); margin-bottom: 18px; letter-spacing: 1px; position: relative; z-index: 1; }
+.header-pills { display: flex; gap: 8px; flex-wrap: wrap; position: relative; z-index: 1; }
+.pill { background: rgba(255,255,255,0.13); border: 0.5px solid rgba(255,255,255,0.35); border-radius: 4px; padding: 4px 10px; font-size: 10px; color: white; display: flex; align-items: center; gap: 5px; font-weight: 600; }
+.pill.countdown { background: rgba(246,196,69,0.18); border-color: rgba(246,196,69,0.6); color: var(--sun-light); }
+.header-flag { position: absolute; top: calc(18px + env(safe-area-inset-top)); right: 20px; width: 64px; height: 42px; border-radius: 4px; opacity: 0.95; box-shadow: 0 2px 12px rgba(0,0,0,0.4); z-index: 2; }
+
+/* ===== CONTENT ===== */
+.tab-content { display: none; padding: 20px 16px 120px; }
+.tab-content.active { display: block; }
+.section-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--aqua); margin: 24px 0 12px; font-weight: 700; }
+.section-label:first-child { margin-top: 0; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-bottom: 14px; font-size: 10px; color: var(--muted-light); }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+.i-dav { background: var(--ocean); } .i-lib { background: transparent; border: 1.5px dashed var(--sun); } .i-noi { background: var(--sun); } .i-log { background: var(--muted); } .i-volo { background: var(--lava); }
+
+/* ===== GIORNO CARD ===== */
+.giorno-card { background: var(--card); border-radius: var(--radius); margin-bottom: 12px; overflow: hidden; border: 0.5px solid var(--border); transition: border-color .15s; }
+.giorno-card:hover { border-color: var(--border2); }
+.giorno-header { display: flex; align-items: center; gap: 14px; padding: 14px 16px; cursor: pointer; }
+.giorno-header:active { opacity: .85; }
+.giorno-num { width: 42px; height: 42px; border-radius: 8px; background: var(--surface2); border: 1px solid var(--ocean); color: var(--ocean); font-family: var(--font-display); font-size: 24px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.giorno-meta { flex: 1; min-width: 0; }
+.giorno-data { font-size: 10px; color: var(--muted); margin-bottom: 3px; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; }
+.giorno-title { font-family: var(--font-display); font-size: 20px; color: var(--text); letter-spacing: 0.8px; line-height: 1.1; }
+.giorno-sotto { font-size: 11px; color: var(--muted-light); margin-top: 2px; font-style: italic; }
+.giorno-badge { font-size: 8px; padding: 3px 8px; border-radius: 3px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; }
+.badge-mare { background: rgba(47,196,230,0.12); color: var(--ocean); border: 0.5px solid rgba(47,196,230,0.3); }
+.badge-teide { background: rgba(224,83,43,0.15); color: #f08a6a; border: 0.5px solid rgba(224,83,43,0.3); }
+.badge-grande { background: rgba(246,196,69,0.12); color: var(--sun); border: 0.5px solid rgba(246,196,69,0.3); }
+.badge-lenta { background: rgba(45,212,168,0.12); color: var(--aqua); border: 0.5px solid rgba(45,212,168,0.3); }
+.badge-volo { background: rgba(127,163,181,0.15); color: var(--muted-light); border: 0.5px solid rgba(127,163,181,0.3); }
+.giorno-free { font-size: 10px; color: var(--sun); font-weight: 700; margin-top: 4px; }
+.giorno-body { display: none; padding: 0 14px 16px; border-top: 0.5px solid var(--border); }
+.giorno-body.open { display: block; }
+.giorno-quote { font-size: 12px; color: var(--muted-light); padding: 12px 2px 10px; border-bottom: 0.5px solid var(--border); margin-bottom: 8px; line-height: 1.5; }
+.giorno-quote b { color: var(--sand); }
+
+/* ===== BLOCCHI TIMELINE ===== */
+.blocco { display: grid; grid-template-columns: 58px 1fr; gap: 10px; padding: 9px 0; border-bottom: 0.5px solid rgba(0,0,0,0.25); position: relative; }
+.blocco:last-child { border-bottom: none; }
+.bl-ora { font-size: 11px; font-weight: 700; color: var(--ocean); padding-top: 3px; line-height: 1.35; }
+.bl-ora small { display: block; font-size: 9px; color: var(--muted); font-weight: 600; }
+.bl-ora .stima { color: var(--muted); font-weight: 600; }
+.bl-main { min-width: 0; border-left: 3px solid var(--ocean); padding-left: 10px; border-radius: 2px; }
+.bl-titolo { font-size: 13.5px; font-weight: 700; color: var(--text); line-height: 1.3; }
+.bl-desc { font-size: 12px; color: var(--muted-light); margin-top: 2px; line-height: 1.45; }
+.bl-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 6px; }
+.tag { font-size: 9px; padding: 2px 7px; border-radius: 3px; background: var(--surface2); color: var(--muted-light); border: 0.5px solid var(--border); font-weight: 700; letter-spacing: .5px; text-transform: uppercase; }
+.tag.dav { color: var(--ocean); border-color: rgba(47,196,230,0.3); }
+.tag.book { color: var(--lava); border-color: rgba(224,83,43,0.4); background: rgba(224,83,43,0.1); }
+.tag.dur { color: var(--sun); border-color: rgba(246,196,69,0.35); background: rgba(246,196,69,0.08); }
+.tag.flex { color: var(--aqua); border-color: rgba(45,212,168,0.3); }
+.blocco.t-volo .bl-main { border-left-color: var(--lava); }
+.blocco.t-logistica .bl-main { border-left-color: var(--muted); }
+.blocco.t-logistica .bl-titolo { color: var(--muted-light); font-weight: 600; }
+.blocco.t-noi .bl-main { border-left-color: var(--sun); }
+.blocco.t-libero .bl-main { border-left: 0; padding: 10px 12px; border: 1.5px dashed rgba(246,196,69,0.55); border-radius: 10px; background: rgba(246,196,69,0.05); }
+.blocco.t-libero .bl-titolo { color: var(--sun-light); }
+.blocco.t-libero .bl-ora { color: var(--sun); }
+.lib-note { margin-top: 8px; }
+.lib-note textarea { width: 100%; min-height: 44px; background: rgba(6,23,34,0.6); border: 0.5px solid var(--border2); border-radius: 8px; color: var(--text); font-family: var(--font-body); font-size: 12px; padding: 7px 9px; resize: vertical; }
+.lib-note textarea::placeholder { color: var(--muted); }
+.lib-note-hint { font-size: 9px; color: var(--muted); margin-top: 3px; }
+.place-link { color: var(--ocean); text-decoration: none; border-bottom: 1px dotted rgba(47,196,230,0.5); }
+.pernottamento { margin-top: 12px; background: var(--surface2); border-radius: 8px; border: 0.5px solid var(--border2); padding: 10px 12px; font-size: 12px; color: var(--muted-light); display: flex; gap: 8px; align-items: flex-start; }
+.pernottamento strong { color: var(--ocean); display: block; margin-bottom: 1px; font-size: 12px; }
+
+/* ===== LIBERI TAB ===== */
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.stat-box { background: var(--card); border-radius: 12px; padding: 14px 8px; text-align: center; border: 0.5px solid var(--border); }
+.stat-val { font-family: var(--font-display); font-size: 28px; color: var(--text); line-height: 1; letter-spacing: 1px; }
+.stat-label { font-size: 9px; color: var(--muted); margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+.stat-box.accent { background: var(--surface2); border-color: rgba(246,196,69,0.35); }
+.stat-box.accent .stat-val { color: var(--sun); }
+.stat-box.ocean .stat-val { color: var(--ocean); }
+.lib-day { background: var(--card); border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; border: 0.5px solid var(--border); }
+.lib-day-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.lib-day-badge { background: var(--surface2); color: var(--ocean); font-size: 10px; font-weight: 700; width: 32px; height: 32px; border-radius: 6px; border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.lib-day-title { flex: 1; font-size: 13px; font-weight: 700; color: var(--text); }
+.lib-day-title small { display: block; font-size: 10px; color: var(--muted); font-weight: 600; }
+.lib-day-val { font-family: var(--font-display); font-size: 22px; color: var(--sun); letter-spacing: 1px; text-align: right; line-height: 1; }
+.lib-day-val small { display: block; font-family: var(--font-body); font-size: 9px; color: var(--muted); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+.bar { display: flex; height: 10px; border-radius: 5px; overflow: hidden; background: var(--surface2); gap: 1px; }
+.bar i { display: block; height: 100%; }
+.bar .b-dav { background: var(--ocean); } .bar .b-lib { background: var(--sun); } .bar .b-log { background: var(--muted); } .bar .b-noi { background: var(--sun-light); } .bar .b-volo { background: var(--lava); }
+.bar-legend { display: flex; justify-content: space-between; font-size: 9px; color: var(--muted); margin-top: 5px; font-weight: 600; }
+.slot-list { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+.slot { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted-light); background: rgba(246,196,69,0.06); border: 1px dashed rgba(246,196,69,0.4); border-radius: 8px; padding: 7px 10px; }
+.slot b { color: var(--sun); font-weight: 700; min-width: 86px; font-size: 11px; }
+.slot em { font-style: normal; color: var(--sun-light); font-weight: 700; margin-left: auto; white-space: nowrap; }
+.slot.filled { border-style: solid; border-color: rgba(45,212,168,0.4); background: rgba(45,212,168,0.06); }
+.slot.filled b, .slot.filled em { color: var(--aqua); }
+.info-note { background: var(--surface2); border-radius: 10px; padding: 12px 14px; font-size: 12px; color: var(--muted-light); line-height: 1.55; border: 0.5px solid var(--border); }
+.info-note strong { color: var(--text); }
+
+/* ===== SPESE ===== */
+.sp-hero { background: linear-gradient(135deg, var(--surface2), var(--card)); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; border: 0.5px solid var(--border2); }
+.sp-hero-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.sp-hero-val { font-family: var(--font-display); font-size: 48px; color: var(--sun); line-height: 1; margin: 6px 0; letter-spacing: 1px; }
+.sp-hero-sub { font-size: 10px; color: var(--muted); }
+.sp-mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+.sp-mini { background: rgba(6,23,34,0.5); border-radius: 8px; padding: 10px; border: 0.5px solid var(--border); }
+.sp-mini-label { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.sp-mini-val { font-family: var(--font-display); font-size: 20px; color: var(--text); margin-top: 3px; letter-spacing: 1px; }
+.sp-mini-val.paid { color: var(--aqua); } .sp-mini-val.due { color: var(--lava); } .sp-mini-val.todo { color: var(--sun); }
+.sp-cat { background: var(--card); border-radius: 12px; margin-bottom: 12px; border: 0.5px solid var(--border); overflow: hidden; }
+.sp-cat-title { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; font-size: 12px; font-weight: 700; color: var(--text); border-bottom: 0.5px solid var(--border); }
+.sp-add-btn { background: var(--surface2); color: var(--ocean); border: 0.5px solid var(--border2); border-radius: 6px; padding: 5px 10px; font-size: 10px; font-weight: 700; cursor: pointer; font-family: var(--font-body); }
+.sp-form { display: none; padding: 10px 14px; background: rgba(6,23,34,0.4); border-bottom: 0.5px solid var(--border); }
+.sp-form.open { display: block; }
+.sp-form-row { display: flex; gap: 8px; margin-bottom: 8px; }
+.sp-input { flex: 1; background: var(--surface2); border: 0.5px solid var(--border2); border-radius: 6px; padding: 8px 10px; color: var(--text); font-family: var(--font-body); font-size: 12px; min-width: 0; }
+.sp-save-btn, .sp-cancel-btn { border-radius: 6px; padding: 8px 14px; font-size: 11px; font-weight: 700; cursor: pointer; font-family: var(--font-body); border: 0; }
+.sp-save-btn { background: var(--ocean-dark); color: white; } .sp-cancel-btn { background: var(--surface2); color: var(--muted-light); }
+.sp-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 0.5px solid rgba(0,0,0,0.25); }
+.sp-item:last-of-type { border-bottom: none; }
+.sp-item.is-paid { opacity: .72; }
+.sp-toggle { position: relative; width: 36px; height: 20px; flex-shrink: 0; }
+.sp-toggle input { opacity: 0; width: 0; height: 0; }
+.sp-toggle-slider { position: absolute; inset: 0; background: var(--surface3); border-radius: 20px; cursor: pointer; transition: .2s; }
+.sp-toggle-slider::before { content: ''; position: absolute; width: 14px; height: 14px; left: 3px; top: 3px; background: var(--muted-light); border-radius: 50%; transition: .2s; }
+.sp-toggle input:checked + .sp-toggle-slider { background: var(--aqua); }
+.sp-toggle input:checked + .sp-toggle-slider::before { transform: translateX(16px); background: #04291f; }
+.sp-item-info { flex: 1; min-width: 0; }
+.sp-item-name { font-size: 13px; font-weight: 600; color: var(--text); }
+.sp-item-name.paid-name { text-decoration: line-through; color: var(--muted); }
+.sp-item-note { font-size: 10px; color: var(--muted); margin-top: 2px; }
+.sp-item-amount { font-family: var(--font-display); font-size: 18px; color: var(--sun); letter-spacing: 1px; white-space: nowrap; }
+.sp-item-amount.paid-amount { color: var(--aqua); }
+.sp-item-amount.todo { font-family: var(--font-body); font-size: 10px; color: var(--muted); font-weight: 700; }
+.sp-del-btn { background: transparent; border: 0; color: var(--lava); font-size: 14px; cursor: pointer; padding: 4px; }
+.sp-cat-total { display: flex; justify-content: space-between; padding: 10px 14px; font-size: 11px; color: var(--muted); background: rgba(6,23,34,0.4); }
+.sp-cat-total strong { color: var(--text); }
+.sp-rate-note { font-size: 10px; color: var(--muted); text-align: center; margin-top: 6px; }
+
+/* ===== INFO ===== */
+.volo-card { background: var(--card); border-radius: 12px; padding: 14px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 0.5px solid var(--border); gap: 10px; }
+.volo-dir { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.volo-route { font-family: var(--font-display); font-size: 24px; color: var(--text); letter-spacing: 1px; margin: 2px 0; }
+.volo-details { font-size: 11px; color: var(--muted-light); line-height: 1.5; }
+.volo-num { font-family: var(--font-display); font-size: 18px; color: var(--sun); background: var(--surface2); padding: 8px 10px; border-radius: 8px; border: 0.5px solid rgba(246,196,69,0.3); white-space: nowrap; }
+.info-card { background: var(--card); border-radius: 12px; padding: 14px; margin-bottom: 10px; border: 0.5px solid var(--border); }
+.info-card-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.info-row { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 0.5px solid rgba(0,0,0,0.25); font-size: 12px; }
+.info-row:last-child { border-bottom: none; }
+.info-key { color: var(--muted); }
+.info-val { color: var(--text); text-align: right; font-weight: 600; }
+.info-val a { color: var(--ocean); text-decoration: none; }
+.emergency-link { color: var(--lava) !important; font-weight: 700; font-size: 14px; }
+.quote { font-size: 13px; color: var(--sand); font-style: italic; line-height: 1.55; padding: 12px 14px; border-left: 3px solid var(--sun); background: rgba(246,196,69,0.06); border-radius: 0 10px 10px 0; margin-bottom: 10px; }
+.quote small { display: block; font-style: normal; color: var(--muted); font-size: 10px; margin-top: 6px; }
+
+/* ===== METEO ===== */
+.meteo-day-card { background: var(--card); border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; border: 0.5px solid var(--border); }
+.meteo-day-num { width: 32px; height: 32px; border-radius: 6px; background: var(--surface2); color: var(--ocean); font-weight: 700; font-size: 11px; display: flex; align-items: center; justify-content: center; border: 0.5px solid var(--border); flex-shrink: 0; }
+.meteo-day-info { flex: 1; min-width: 0; }
+.meteo-day-data { font-size: 11px; color: var(--muted); font-weight: 700; }
+.meteo-day-desc { font-size: 13px; color: var(--text); font-weight: 600; margin: 2px 0; }
+.meteo-day-temps { font-size: 10px; color: var(--muted-light); }
+.meteo-day-temps em { color: var(--muted); }
+.meteo-icon { font-size: 28px; }
+.meteo-loading, .meteo-note { font-size: 11px; color: var(--muted); text-align: center; padding: 10px; }
+
+/* ===== BOTTOM NAV ===== */
+.bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: rgba(6,23,34,0.96); backdrop-filter: blur(12px); border-top: 0.5px solid var(--border2); display: flex; padding: 8px 4px calc(8px + env(safe-area-inset-bottom)); z-index: 100; }
+.nav-btn { flex: 1; background: none; border: 0; color: var(--muted); font-family: var(--font-body); font-size: 10px; font-weight: 700; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 4px 0; cursor: pointer; letter-spacing: .5px; }
+.nav-btn .n-icon { font-size: 20px; line-height: 1; }
+.nav-btn.active { color: var(--sun); }
+
+/* ===== INSTALL ===== */
+.install-fab { position: fixed; z-index: 201; right: max(14px, calc(50% - 226px)); bottom: calc(72px + env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 8px; padding: 9px 15px 9px 9px; background: #0b3a7a; color: #fff; border: 1px solid var(--sun); border-radius: 999px; font-family: var(--font-body); font-size: 12px; font-weight: 700; box-shadow: 0 6px 22px rgba(0,0,0,.45), 0 0 0 3px rgba(246,196,69,.12); cursor: pointer; animation: fabIn .35s ease both, fabPulse 2.8s ease-in-out 1.2s infinite; }
+.install-fab[hidden] { display: none; }
+.install-fab img { width: 26px; height: 26px; border-radius: 7px; display: block; }
+@keyframes fabIn { from { opacity: 0; transform: translateY(14px) scale(.9); } to { opacity: 1; transform: none; } }
+@keyframes fabPulse { 0%,100% { box-shadow: 0 6px 22px rgba(0,0,0,.45), 0 0 0 3px rgba(246,196,69,.12); } 50% { box-shadow: 0 6px 26px rgba(0,0,0,.5), 0 0 0 6px rgba(246,196,69,.22); } }
+.install-toast { position: fixed; z-index: 202; left: 50%; transform: translateX(-50%); bottom: calc(124px + env(safe-area-inset-bottom)); width: calc(100% - 40px); max-width: 300px; background: var(--card); color: var(--text); border: 0.5px solid var(--border2); border-radius: 12px; padding: 12px 14px; font-size: 11px; line-height: 1.6; box-shadow: 0 8px 30px rgba(0,0,0,.5); }
+.install-toast[hidden] { display: none; }
+.install-toast b { color: var(--ocean); }
+
+/* ===== MAPS MODAL ===== */
+.maps-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 300; display: flex; align-items: flex-end; justify-content: center; }
+.maps-modal.hidden { display: none; }
+.maps-modal-box { width: 100%; max-width: 480px; background: var(--card); border-radius: 16px 16px 0 0; padding: 18px 16px calc(18px + env(safe-area-inset-bottom)); border-top: 0.5px solid var(--border2); max-height: 80vh; overflow-y: auto; }
+.maps-modal-title { font-family: var(--font-display); font-size: 22px; color: var(--text); letter-spacing: 1px; margin-bottom: 12px; }
+.maps-modal-title small { display: block; font-family: var(--font-body); font-size: 11px; color: var(--muted); letter-spacing: 0; }
+.maps-modal-actions, .maps-prev-list { display: flex; flex-direction: column; gap: 8px; }
+.maps-modal-actions button, .maps-prev-list button { background: var(--surface2); color: var(--text); border: 0.5px solid var(--border2); border-radius: 10px; padding: 12px; font-family: var(--font-body); font-size: 13px; font-weight: 600; text-align: left; cursor: pointer; }
+.maps-prev-list button:disabled { color: var(--muted); }
+.maps-hidden { display: none !important; }
+.maps-close-btn { margin-top: 12px; width: 100%; background: transparent; color: var(--muted-light); border: 0.5px solid var(--border); border-radius: 10px; padding: 10px; font-family: var(--font-body); font-size: 12px; cursor: pointer; }
+</style>
+</head>
+<body>
+<header class="app-header">
+<!-- Bandiera spagnola -->
+<svg aria-hidden="true" class="header-flag" viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#AA151B" height="20" width="30"></rect>
+<rect fill="#F1BF00" height="10" width="30" y="5"></rect>
+<g transform="translate(7.5,6.2) scale(0.3)">
+<rect x="4" y="4" width="14" height="18" rx="2" fill="#AA151B" stroke="#6b0f13" stroke-width="1"/>
+<rect x="4" y="4" width="7" height="9" fill="#F1BF00"/><rect x="11" y="13" width="7" height="9" fill="#F1BF00"/>
+<rect x="0" y="0" width="4" height="26" fill="#d9d9d9" stroke="#8a8a8a" stroke-width="0.6"/>
+<rect x="18" y="0" width="4" height="26" fill="#d9d9d9" stroke="#8a8a8a" stroke-width="0.6"/>
+<rect x="0" y="-2" width="4" height="2.5" fill="#F1BF00"/><rect x="18" y="-2" width="4" height="2.5" fill="#F1BF00"/>
+<path d="M4 2 Q11 -1 18 2 L18 4 L4 4 Z" fill="#F1BF00" stroke="#8a6500" stroke-width="0.5"/>
+</g>
+</svg>
+<div class="header-eyebrow">Piano Viaggio · Andrea &amp; Michela</div>
+<h1 class="header-title"><em>Tenerife</em> 2026</h1>
+<p class="header-sub">15–19 Ottobre · Playa Paraíso · ospiti di Davide</p>
+<div class="header-pills">
+<div class="pill"><span>✈️</span> FR2830</div>
+<div class="pill"><span>🏠</span> Lella's Home</div>
+<div class="pill"><span>👥</span> 2 persone</div>
+<div class="pill"><span>📅</span> 5 giorni</div>
+<div class="pill countdown"><span>⏳</span> <span id="countdown">—</span></div>
+</div>
+</header>
+
+<!-- ========== PIANO ========== -->
+<div class="tab-content active" id="tab-piano">
+<p class="section-label">5 giorni · programma di Davide + slot liberi</p>
+<div class="legend">
+<span><i class="i-dav"></i> Programma Davide</span>
+<span><i class="i-lib"></i> Slot libero (da colmare)</span>
+<span><i class="i-noi"></i> Attività nostra</span>
+<span><i class="i-log"></i> Logistica</span>
+<span><i class="i-volo"></i> Volo</span>
+</div>
+<div id="piano-app"></div>
+<div class="info-note" style="margin-top:14px;">
+💡 Gli orari di Davide senza ora precisa ("mattina", "sera", "tardo pomeriggio") sono <strong>stime</strong> segnate con «~». Gli slot tratteggiati sono i vuoti lasciati dal programma: scrivi un'idea nel campo note (resta salvata sul telefono) oppure passamela e la inserisco come attività nostra.
+</div>
+</div>
+
+<!-- ========== LIBERI ========== -->
+<div class="tab-content" id="tab-liberi">
+<div id="liberi-app"></div>
+</div>
+
+<!-- ========== SPESE ========== -->
+<div class="tab-content" id="tab-spese">
+<div id="spese-app"></div>
+</div>
+
+<!-- ========== METEO ========== -->
+<div class="tab-content" id="tab-meteo">
+<p class="section-label">Previsioni per il tuo viaggio</p>
+<div id="meteo-container"><div class="meteo-loading">⏳ Caricamento previsioni...</div></div>
+<p class="meteo-note">Fonte: Open-Meteo · località del giorno · fuso Atlantic/Canary</p>
+</div>
+
+<!-- ========== INFO ========== -->
+<div class="tab-content" id="tab-info">
+<p class="section-label">Voli · Ryanair · prenotazione G8WW6E</p>
+<div class="volo-card">
+<div>
+<div class="volo-dir">Andata · Gio 15 Ott</div>
+<div class="volo-route">BGY → TFS</div>
+<div class="volo-details">05:50 → 09:25 (ora locale) · Milano Bergamo → Tenerife Sud<br/>Posti 29E (Andrea) · 29D (Michela)</div>
+</div>
+<div class="volo-num">FR2830</div>
+</div>
+<div class="volo-card">
+<div>
+<div class="volo-dir">Ritorno · Lun 19 Ott</div>
+<div class="volo-route">TFS → BGY</div>
+<div class="volo-details">05:50 → 11:05 (ora locale) · Tenerife Sud → Milano Bergamo<br/>Posti 29E (Andrea) · 29D (Michela)</div>
+</div>
+<div class="volo-num">FR2831</div>
+</div>
+<div class="info-card">
+<div class="info-card-title">🧳 Passeggeri e bagagli</div>
+<div class="info-row"><span class="info-key">Andrea D'Alì</span><span class="info-val">Priorità + 2 bagagli a mano</span></div>
+<div class="info-row"><span class="info-key">Michela Cardinale</span><span class="info-val">Solo borsa piccola (sotto il sedile)</span></div>
+<div class="info-row"><span class="info-key">Check-in online</span><span class="info-val">Da 24h prima (dal 14/10 05:50)</span></div>
+</div>
+
+<p class="section-label" style="margin-top:20px;">Dove si dorme · dove si mangia</p>
+<div class="info-card">
+<div class="info-card-title">🏠 Lella's Home — Playa Paraíso</div>
+<div class="info-row"><span class="info-key">Notti</span><span class="info-val">4 · 15 → 19 ottobre</span></div>
+<div class="info-row"><span class="info-key">Cos'è</span><span class="info-val">Base indipendente, terrazza con vista</span></div>
+<div class="info-row"><span class="info-key">Link</span><span class="info-val"><a href="https://lellashome.kross.travel/lella-s-home" target="_blank">lellashome.kross.travel ↗</a></span></div>
+<div class="info-row"><span class="info-key">Mappa</span><span class="info-val"><a class="nav-point" data-day="0" data-point="0" data-label="Playa Paraíso" data-maps="https://www.google.com/maps/search/?api=1&query=Playa+Paraiso+Adeje+Tenerife" href="#">Playa Paraíso ↗</a></span></div>
+</div>
+<div class="info-card">
+<div class="info-card-title">🐈 Casa di Davide — Adeje</div>
+<div class="info-row"><span class="info-key">Distanza</span><span class="info-val">Pochi minuti da Playa Paraíso</span></div>
+<div class="info-row"><span class="info-key">Programma</span><span class="info-val">Aperitivi + cene di venerdì e domenica</span></div>
+<div class="info-row"><span class="info-key">Host ufficiale</span><span class="info-val">Merlino 🐾 (coccole non negoziabili)</span></div>
+</div>
+
+<p class="section-label" style="margin-top:20px;">Da prenotare</p>
+<div class="info-card">
+<div class="info-row"><span class="info-key">Sab 17 · 10:00</span><span class="info-val">Neptuno · balene &amp; delfini (3h, Los Cristianos)</span></div>
+<div class="info-row"><span class="info-key">Sab 17 · sera</span><span class="info-val">CHAR Fuego y Brasas · la cena importante</span></div>
+<div class="info-row"><span class="info-key">Lun 19 · ~03:45</span><span class="info-val">Transfer notturno per TFS (taxi o Davide?)</span></div>
+</div>
+
+<p class="section-label" style="margin-top:20px;">Info pratiche</p>
+<div class="info-card">
+<div class="info-card-title">🕐 Orari e valuta</div>
+<div class="info-row"><span class="info-key">Fuso orario</span><span class="info-val">1 ora indietro rispetto all'Italia</span></div>
+<div class="info-row"><span class="info-key">Valuta</span><span class="info-val">EUR · nessun cambio</span></div>
+<div class="info-row"><span class="info-key">Prefisso</span><span class="info-val">+34</span></div>
+<div class="info-row"><span class="info-key">Roaming</span><span class="info-val">UE · come in Italia</span></div>
+<div class="info-row"><span class="info-key">Aeroporto TFS → Playa Paraíso</span><span class="info-val">~25 min in auto</span></div>
+</div>
+<div class="info-card">
+<div class="info-card-title">🌤 Clima ottobre (sud)</div>
+<div class="info-row"><span class="info-key">Temperatura</span><span class="info-val">21–27°C costa · 5–15°C sul Teide</span></div>
+<div class="info-row"><span class="info-key">Mare</span><span class="info-val">~23°C, si fa il bagno</span></div>
+<div class="info-row"><span class="info-key">Tramonto</span><span class="info-val">~19:10</span></div>
+<div class="info-row"><span class="info-key">Teide</span><span class="info-val">Portare giacca: può fare freddo e vento</span></div>
+</div>
+<div class="info-card">
+<div class="info-card-title">🚨 Emergenze</div>
+<div class="info-row"><span class="info-key">Emergenze</span><span class="info-val"><a class="emergency-link" href="tel:112">112</a></span></div>
+<div class="info-row"><span class="info-key">Programma originale</span><span class="info-val"><a href="https://mickyandretenerife.administracion-a71.workers.dev/" target="_blank">Il sito di Davide ↗</a></span></div>
+</div>
+<div class="quote">«Gli orari sono una traccia, non una religione. Mare e montagna decidono una parte del programma; noi decidiamo il resto.»<small>Regola del viaggio — Davide</small></div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+<button class="nav-btn active" onclick="showTab('piano')"><span class="n-icon">🗺</span>Piano</button>
+<button class="nav-btn" onclick="showTab('liberi')"><span class="n-icon">⏱</span>Liberi</button>
+<button class="nav-btn" onclick="showTab('spese')"><span class="n-icon">💶</span>Spese</button>
+<button class="nav-btn" onclick="showTab('meteo')"><span class="n-icon">🌤</span>Meteo</button>
+<button class="nav-btn" onclick="showTab('info')"><span class="n-icon">ℹ️</span>Info</button>
+</nav>
+<button aria-label="Installa l'app" class="install-fab" hidden="" id="install-btn" type="button"><img alt="" id="install-icon"/><b>Installa app</b></button>
+<div class="install-toast" hidden="" id="ios-hint"></div>
+
+<div class="maps-modal hidden" id="maps-modal">
+<div class="maps-modal-box">
+<div class="maps-modal-title">Maps<small id="maps-modal-sub"></small></div>
+<div class="maps-modal-actions" id="maps-main-actions">
+<button id="maps-point-btn">📍 Apri il punto</button>
+<button id="maps-nav-btn">🧭 Navigazione da un punto precedente</button>
+</div>
+<div class="maps-prev-list maps-hidden" id="maps-prev-list"></div>
+<button class="maps-close-btn" id="maps-close-btn">Chiudi</button>
+</div>
+</div>
+
+<script>
+/* =====================================================================
+   DATI DEL VIAGGIO
+   tipo:  volo | logistica | davide | libero | noi
+   ora/fine: 'HH:MM'. stima:true quando Davide non ha dato un orario preciso.
+   Per colmare uno slot libero: cambia tipo in 'noi', metti titolo/desc.
+   ===================================================================== */
+const MAPS = q => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q);
+
+const GIORNI = [
+  {
+    num: 1, data: '2026-10-15', label: 'Gio 15 Ott', giorno: 'Giovedì 15 Ottobre',
+    titolo: 'Arrivo · mare · prima sera', sotto: 'Si comincia dal Duque.', badge: ['mare', 'Mare'],
+    quote: 'Atterrate alle 09:25. Bagagli, Lella\'s Home, caffè. Poi mare: niente corse, solo il modo giusto di entrare nell\'isola.',
+    lat: 28.09, lon: -16.74, zona: 'sud',
+    blocchi: [
+      { ora: '05:50', fine: '09:25', tipo: 'volo', titolo: 'Volo FR2830 Bergamo → Tenerife Sud', desc: 'Partenza 05:50 ora italiana, arrivo 09:25 ora locale (4h35 di volo). Posti 29E/29D.', durata: 275 },
+      { ora: '09:25', fine: '12:00', tipo: 'davide', titolo: 'Arrivo a Tenerife', desc: 'Recupero bagagli, trasferimento, check-in a Lella\'s Home e caffè.', tag: 'arrivo', stima: true,
+        places: [{ label: "Lella's Home · Playa Paraíso", q: 'Playa Paraiso Adeje Tenerife' }] },
+      { ora: '12:00', fine: '15:30', tipo: 'davide', titolo: 'Playa del Duque', desc: 'Pranzo sul mare, primo bagno e sole.', tag: 'mare', stima: true,
+        places: [{ label: 'Playa del Duque', q: 'Playa del Duque Tenerife' }] },
+      { id: 'd1-pom', ora: '15:30', fine: '19:00', tipo: 'libero', titolo: 'Pomeriggio libero', desc: 'Davide non ha previsto nulla tra il Duque e l\'aperitivo.' },
+      { ora: '19:00', fine: '23:00', tipo: 'davide', titolo: 'Aperitivo + cena fuori', desc: 'Prima sera semplice e bella.', tag: 'fuori', stima: true },
+    ],
+    notte: { nome: "Lella's Home", dove: 'Playa Paraíso · notte 1 di 4', q: 'Playa Paraiso Adeje Tenerife' },
+  },
+  {
+    num: 2, data: '2026-10-16', label: 'Ven 16 Ott', giorno: 'Venerdì 16 Ottobre',
+    titolo: 'Vulcano · strada · cena ad Adeje', sotto: 'Teide. Un altro pianeta.', badge: ['teide', 'Teide'],
+    quote: 'Una giornata intera da dedicare alla montagna: strada panoramica, paesaggio vulcanico e tempo per fermarsi.',
+    lat: 28.27, lon: -16.64, zona: 'teide',
+    blocchi: [
+      { id: 'd2-mat', ora: '08:00', fine: '09:00', tipo: 'libero', titolo: 'Mattina presto', desc: 'Colazione in terrazza a Lella\'s Home prima della partenza.' },
+      { ora: '09:00', fine: '13:00', tipo: 'davide', titolo: 'Salita al Teide', desc: 'Soste panoramiche e Parco Nazionale.', tag: 'road trip', stima: true,
+        places: [{ label: 'Parque Nacional del Teide', q: 'Parque Nacional del Teide' }] },
+      { ora: '13:00', fine: '14:30', tipo: 'davide', titolo: 'Roques de García', desc: 'Passeggiata e pranzo lungo il percorso.', tag: 'Teide', stima: true,
+        places: [{ label: 'Roques de García', q: 'Roques de Garcia Tenerife' }] },
+      { ora: '14:30', fine: '16:00', tipo: 'logistica', titolo: 'Discesa e rientro a Playa Paraíso', desc: 'Circa 1h15 di strada dal Parco, più eventuali soste.', stima: true },
+      { id: 'd2-pom', ora: '16:00', fine: '19:30', tipo: 'libero', titolo: 'Tardo pomeriggio libero', desc: 'Doccia e riposo sono già previsti da Davide; il resto è vostro.' },
+      { ora: '19:30', fine: '23:30', tipo: 'davide', titolo: 'Cena da Davide ad Adeje', desc: 'Doccia, vino, tavola lunga e nessun ristorante. Merlino supervisiona.', tag: 'casa', stima: true,
+        places: [{ label: 'Adeje', q: 'Adeje Tenerife' }] },
+    ],
+    notte: { nome: "Lella's Home", dove: 'Playa Paraíso · notte 2 di 4', q: 'Playa Paraiso Adeje Tenerife' },
+  },
+  {
+    num: 3, data: '2026-10-17', label: 'Sab 17 Ott', giorno: 'Sabato 17 Ottobre',
+    titolo: 'Balene · Masca · Los Gigantes · CHAR', sotto: 'La giornata grande.', badge: ['grande', 'Giornata piena'],
+    quote: 'Atlantico al mattino, curve e montagne nel pomeriggio, brace la sera. È la giornata più piena del viaggio.',
+    lat: 28.24, lon: -16.84, zona: 'ovest',
+    blocchi: [
+      { id: 'd3-mat', ora: '08:00', fine: '09:30', tipo: 'libero', titolo: 'Mattina presto', desc: 'Colazione; alle 09:30 si parte per Los Cristianos.' },
+      { ora: '09:30', fine: '10:00', tipo: 'logistica', titolo: 'Trasferimento a Los Cristianos e imbarco', desc: '~20 min di strada dal Playa Paraíso.', stima: true },
+      { ora: '10:00', fine: '13:00', tipo: 'davide', titolo: 'Neptuno · balene & delfini', desc: 'Uscita di circa 3 ore da Los Cristianos.', tag: 'da prenotare', book: true,
+        places: [{ label: 'Porto di Los Cristianos', q: 'Puerto de Los Cristianos Tenerife' }] },
+      { id: 'd3-pranzo', ora: '13:00', fine: '14:30', tipo: 'libero', titolo: 'Pranzo libero', desc: 'Davide non indica il pranzo: 1h30 a Los Cristianos o lungo la strada per Santiago del Teide.' },
+      { ora: '14:30', fine: '17:00', tipo: 'davide', titolo: 'Santiago del Teide → Masca', desc: 'Mirador, strada panoramica e borgo.', tag: 'panorama', stima: true,
+        places: [{ label: 'Santiago del Teide', q: 'Santiago del Teide Tenerife' }, { label: 'Masca', q: 'Masca Tenerife' }] },
+      { ora: '17:00', fine: '18:30', tipo: 'davide', titolo: 'Los Gigantes', desc: 'Sosta breve prima del rientro.', tag: 'sosta', stima: true,
+        places: [{ label: 'Los Gigantes', q: 'Los Gigantes Tenerife' }] },
+      { ora: '18:30', fine: '19:15', tipo: 'logistica', titolo: 'Rientro e doccia', desc: '~30 min da Los Gigantes a Playa Paraíso.', stima: true },
+      { id: 'd3-sera', ora: '19:15', fine: '20:30', tipo: 'libero', titolo: 'Prima di cena', desc: 'Poco più di un\'ora: aperitivo per conto vostro?' },
+      { ora: '20:30', fine: '23:30', tipo: 'davide', titolo: 'CHAR Fuego y Brasas', desc: 'La cena importante del viaggio.', tag: 'da prenotare', book: true, stima: true,
+        places: [{ label: 'CHAR Fuego y Brasas', q: 'CHAR Fuego y Brasas Tenerife' }] },
+    ],
+    notte: { nome: "Lella's Home", dove: 'Playa Paraíso · notte 3 di 4', q: 'Playa Paraiso Adeje Tenerife' },
+  },
+  {
+    num: 4, data: '2026-10-18', label: 'Dom 18 Ott', giorno: 'Domenica 18 Ottobre',
+    titolo: 'Sud · passeggiata · ultimo tramonto', sotto: 'La domenica lenta.', badge: ['lenta', 'Lenta'],
+    quote: 'Niente impresa epica: mare, lungomare, pranzo e ultimo sole. Esattamente quello che serve prima di un volo alle cinque del mattino.',
+    lat: 28.05, lon: -16.72, zona: 'sud',
+    blocchi: [
+      { id: 'd4-mat', ora: '08:00', fine: '10:30', tipo: 'libero', titolo: 'Mattina libera', desc: 'Due ore e mezza prima della spiaggia.' },
+      { ora: '10:30', fine: '13:00', tipo: 'davide', titolo: 'Playa de Las Vistas', desc: 'Bagno, sabbia e calma.', tag: 'mare', stima: true, flex: true,
+        places: [{ label: 'Playa de Las Vistas', q: 'Playa de Las Vistas Tenerife' }] },
+      { ora: '13:00', fine: '15:30', tipo: 'davide', titolo: 'Los Cristianos', desc: 'Passeggiata e pranzo senza programma rigido.', tag: 'passeggio', stima: true, flex: true,
+        places: [{ label: 'Los Cristianos', q: 'Los Cristianos Tenerife' }] },
+      { ora: '15:30', fine: '18:00', tipo: 'davide', titolo: 'Las Américas', desc: 'Caffè, ultimo sole e un giro sul lungomare.', tag: 'easy', stima: true, flex: true,
+        places: [{ label: 'Playa de Las Américas', q: 'Playa de Las Americas Tenerife' }] },
+      { id: 'd4-pom', ora: '18:00', fine: '19:00', tipo: 'libero', titolo: 'Prima dell\'ultima cena', desc: 'Un\'ora per rientrare e iniziare le valigie.' },
+      { ora: '19:00', fine: '22:00', tipo: 'davide', titolo: 'Ultima cena da Davide ad Adeje', desc: 'Presto. Poi valigie e qualche ora di sonno.', tag: 'casa', stima: true,
+        places: [{ label: 'Adeje', q: 'Adeje Tenerife' }] },
+    ],
+    notte: { nome: "Lella's Home", dove: 'Playa Paraíso · notte 4 di 4 · sveglia ~03:15', q: 'Playa Paraiso Adeje Tenerife' },
+  },
+  {
+    num: 5, data: '2026-10-19', label: 'Lun 19 Ott', giorno: 'Lunedì 19 Ottobre',
+    titolo: 'Rientro a Milano', sotto: 'Volo alle cinque e cinquanta.', badge: ['volo', 'Partenza'],
+    quote: null,
+    lat: 28.04, lon: -16.57, zona: 'sud',
+    blocchi: [
+      { ora: '03:15', fine: '03:45', tipo: 'logistica', titolo: 'Sveglia e check-out', desc: 'Valigie già pronte dalla sera prima.', stima: true },
+      { ora: '03:45', fine: '04:10', tipo: 'logistica', titolo: 'Trasferimento a Tenerife Sud (TFS)', desc: '~25 min. Da decidere: taxi o passaggio di Davide.', stima: true,
+        places: [{ label: 'Aeroporto Tenerife Sur', q: 'Aeropuerto Tenerife Sur' }] },
+      { ora: '04:10', fine: '05:50', tipo: 'logistica', titolo: 'Controlli e imbarco', desc: 'Priorità per Andrea; Michela solo bagaglio piccolo.' },
+      { ora: '05:50', fine: '11:05', tipo: 'volo', titolo: 'Volo FR2831 Tenerife Sud → Bergamo', desc: 'Partenza 05:50 ora locale, arrivo 11:05 ora italiana (4h15 di volo).', durata: 255 },
+    ],
+    notte: null,
+  },
+];
+
+const DAY_START = '08:00', DAY_END = '23:30';   // finestra "giornata utile" per il calcolo del tempo libero
+const TIPI = {
+  volo:      { label: 'Volo',             icon: '✈️' },
+  logistica: { label: 'Logistica',        icon: '🚐' },
+  davide:    { label: 'Programma Davide', icon: '🧭' },
+  libero:    { label: 'Slot libero',      icon: '⬜' },
+  noi:       { label: 'Attività nostra',  icon: '💛' },
+};
+
+/* ===== UTILS ===== */
+function toMin(hhmm) { const [h, m] = hhmm.replace('~', '').split(':').map(Number); return h * 60 + m; }
+function durata(b) { if (b.durata != null) return b.durata; return Math.max(0, toMin(b.fine) - toMin(b.ora)); }
+function fmtDur(min) { const h = Math.floor(min / 60), m = min % 60; return m ? `${h}h${String(m).padStart(2, '0')}` : `${h}h`; }
+function fmtH(min) { return (min / 60).toLocaleString('it', { maximumFractionDigits: 1 }); }
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+
+/* ===== NOTE SLOT LIBERI (localStorage) ===== */
+const NOTE_KEY = 'tenerife_note_v1';
+function noteLoad() { try { return JSON.parse(localStorage.getItem(NOTE_KEY) || '{}'); } catch (e) { return {}; } }
+function noteSave(id, val) { try { const n = noteLoad(); val.trim() ? n[id] = val : delete n[id]; localStorage.setItem(NOTE_KEY, JSON.stringify(n)); } catch (e) {} }
+
+/* ===== TAB ===== */
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  document.querySelectorAll('[onclick="showTab(\'' + name + '\')"]').forEach(el => el.classList.add('active'));
+  document.documentElement.scrollTop = 0; document.body.scrollTop = 0;
+  if (name === 'meteo' && !window.meteoLoaded) loadMeteo();
+  if (name === 'spese') spRender();
+  if (name === 'liberi') liberiRender();
+}
+
+/* ===== PIANO ===== */
+function placeLinks(b, dayNum, counter) {
+  if (!b.places || !b.places.length) return '';
+  return ' ' + b.places.map(p => {
+    const idx = counter.n++;
+    return `<a class="place-link nav-point" data-day="${dayNum}" data-point="${idx}" data-label="${esc(p.label)}" data-maps="${MAPS(p.q)}" href="${MAPS(p.q)}" target="_blank">📍 ${esc(p.label)}</a>`;
+  }).join(' · ');
+}
+
+function pianoRender() {
+  const notes = noteLoad();
+  let html = '';
+  GIORNI.forEach(g => {
+    const counter = { n: 0 };
+    const free = g.blocchi.filter(b => b.tipo === 'libero').reduce((s, b) => s + durata(b), 0);
+    const dav = g.blocchi.filter(b => b.tipo === 'davide').reduce((s, b) => s + durata(b), 0);
+    html += `<div class="giorno-card" id="giorno-${g.num}">
+      <div class="giorno-header" onclick="toggleDay(this.parentElement)">
+        <div class="giorno-num">${g.num}</div>
+        <div class="giorno-meta">
+          <div class="giorno-data">${g.giorno}</div>
+          <div class="giorno-title">${esc(g.titolo)}</div>
+          <div class="giorno-sotto">${esc(g.sotto)}</div>
+          ${free ? `<div class="giorno-free">⬜ ${fmtDur(free)} liberi · 🧭 ${fmtDur(dav)} con Davide</div>` : ''}
+        </div>
+        <span class="giorno-badge badge-${g.badge[0]}">${g.badge[1]}</span>
+      </div>
+      <div class="giorno-body">`;
+    if (g.quote) html += `<div class="giorno-quote"><b>Davide:</b> «${esc(g.quote)}»</div>`;
+    g.blocchi.forEach(b => {
+      const t = TIPI[b.tipo];
+      const d = durata(b);
+      const tilde = b.stima ? '<span class="stima">~</span>' : '';
+      let tags = '';
+      if (b.tipo === 'davide') tags += `<span class="tag dav">🧭 Davide${b.tag ? ' · ' + esc(b.tag) : ''}</span>`;
+      if (b.tipo === 'noi') tags += `<span class="tag" style="color:var(--sun)">💛 Noi</span>`;
+      if (b.book) tags += `<span class="tag book">Da prenotare</span>`;
+      if (b.flex) tags += `<span class="tag flex">Senza programma rigido</span>`;
+      if (b.tipo === 'libero') tags += `<span class="tag dur">${fmtDur(d)} liberi</span>`;
+      else if (b.tipo === 'davide' && d) tags += `<span class="tag">${fmtDur(d)}</span>`;
+      let noteHtml = '';
+      if (b.tipo === 'libero' && b.id) {
+        noteHtml = `<div class="lib-note">
+          <textarea placeholder="La vostra idea per questo slot…" oninput="noteSave('${b.id}', this.value)" onclick="event.stopPropagation()">${esc(notes[b.id] || '')}</textarea>
+          <div class="lib-note-hint">Salvato sul telefono · per inserirlo nel programma passalo ad Andrea/Claude</div>
+        </div>`;
+      }
+      html += `<div class="blocco t-${b.tipo}">
+        <div class="bl-ora">${tilde}${b.ora}<small>→ ${b.fine}</small></div>
+        <div class="bl-main">
+          <div class="bl-titolo">${t.icon} ${esc(b.titolo)}</div>
+          ${b.desc ? `<div class="bl-desc">${esc(b.desc)}${placeLinks(b, g.num, counter)}</div>` : ''}
+          ${tags ? `<div class="bl-tags">${tags}</div>` : ''}
+          ${noteHtml}
+        </div>
+      </div>`;
+    });
+    if (g.notte) {
+      const idx = counter.n++;
+      html += `<div class="pernottamento">🛏 <div><strong><a class="place-link nav-point" data-day="${g.num}" data-point="${idx}" data-label="${esc(g.notte.nome)}" data-maps="${MAPS(g.notte.q)}" href="${MAPS(g.notte.q)}" target="_blank">${esc(g.notte.nome)}</a></strong>${esc(g.notte.dove)}</div></div>`;
+    }
+    html += `</div></div>`;
+  });
+  document.getElementById('piano-app').innerHTML = html;
+  bindNavPoints();
+}
+
+function toggleDay(card) {
+  const body = card.querySelector('.giorno-body');
+  const isOpen = body.classList.contains('open');
+  document.querySelectorAll('.giorno-body.open').forEach(b => b.classList.remove('open'));
+  if (!isOpen) body.classList.add('open');
+}
+
+/* ===== LIBERI (analisi tempo) ===== */
+function liberiRender() {
+  const notes = noteLoad();
+  const win = toMin(DAY_END) - toMin(DAY_START);
+  let totFree = 0, totDav = 0, totNoi = 0, totLog = 0;
+  const rows = GIORNI.map(g => {
+    const sum = tipo => g.blocchi.filter(b => b.tipo === tipo).reduce((s, b) => s + durata(b), 0);
+    const r = { g, lib: sum('libero'), dav: sum('davide'), noi: sum('noi'), log: sum('logistica'), volo: g.blocchi.some(b => b.tipo === 'volo') };
+    totFree += r.lib; totDav += r.dav; totNoi += r.noi; totLog += r.log;
+    return r;
+  });
+  const fullDays = rows.filter(r => r.dav > 0).length;   // giorni con programma di Davide (D1–D4)
+
+  let html = `
+  <p class="section-label">Quanto tempo ci resta</p>
+  <div class="stats-grid">
+    <div class="stat-box accent"><div class="stat-val">${fmtH(totFree)}h</div><div class="stat-label">ore libere</div></div>
+    <div class="stat-box ocean"><div class="stat-val">${fmtH(totDav)}h</div><div class="stat-label">con Davide</div></div>
+    <div class="stat-box"><div class="stat-val">${fmtH(totNoi)}h</div><div class="stat-label">già colmate</div></div>
+  </div>
+  <div class="info-note" style="margin-bottom:16px;">
+    Calcolo sulla finestra <strong>${DAY_START}–${DAY_END}</strong> di ogni giornata. Il programma di Davide occupa in media <strong>${fmtH(Math.round(totDav / Math.max(1, fullDays)))}h al giorno</strong> nei ${fullDays} giorni con programma; a voi restano in media <strong>${fmtH(Math.round(totFree / Math.max(1, fullDays)))}h al giorno</strong>. Le durate dei blocchi di Davide senza orario sono stime.
+  </div>
+  <p class="section-label">Giorno per giorno</p>`;
+
+  rows.forEach(r => {
+    const g = r.g;
+    const pct = v => Math.max(0, Math.min(100, v / win * 100)).toFixed(1);
+    const slots = g.blocchi.filter(b => b.tipo === 'libero' || b.tipo === 'noi');
+    html += `<div class="lib-day">
+      <div class="lib-day-head">
+        <div class="lib-day-badge">D${g.num}</div>
+        <div class="lib-day-title">${esc(g.titolo)}<small>${g.label} · 🧭 ${fmtDur(r.dav)} Davide · 🚐 ${fmtDur(r.log)} logistica</small></div>
+        <div class="lib-day-val">${r.volo && !r.lib ? '—' : fmtDur(r.lib)}<small>${r.volo && !r.lib ? 'giorno di volo' : 'liberi'}</small></div>
+      </div>
+      <div class="bar">
+        ${r.dav ? `<i class="b-dav" style="width:${pct(r.dav)}%"></i>` : ''}
+        ${r.noi ? `<i class="b-noi" style="width:${pct(r.noi)}%"></i>` : ''}
+        ${r.lib ? `<i class="b-lib" style="width:${pct(r.lib)}%"></i>` : ''}
+        ${r.log ? `<i class="b-log" style="width:${pct(r.log)}%"></i>` : ''}
+      </div>
+      <div class="bar-legend"><span>${DAY_START}</span><span>${DAY_END}</span></div>`;
+    if (slots.length) {
+      html += `<div class="slot-list">` + slots.map(b => {
+        const note = b.id && notes[b.id];
+        const filled = b.tipo === 'noi' || note;
+        const txt = b.tipo === 'noi' ? b.titolo : (note ? 'Idea: ' + note : 'Da colmare');
+        return `<div class="slot ${filled ? 'filled' : ''}" onclick="goToDay(${g.num})"><b>${b.ora}–${b.fine}</b><span>${esc(txt)}</span><em>${fmtDur(durata(b))}</em></div>`;
+      }).join('') + `</div>`;
+    }
+    html += `</div>`;
+  });
+  html += `<div class="legend" style="margin-top:12px;"><span><i class="i-dav"></i> Davide</span><span><i class="i-lib" style="background:var(--sun)"></i> Libero</span><span><i class="i-noi" style="background:var(--sun-light)"></i> Nostro</span><span><i class="i-log"></i> Logistica</span></div>`;
+  document.getElementById('liberi-app').innerHTML = html;
+}
+function goToDay(n) {
+  showTab('piano');
+  const card = document.getElementById('giorno-' + n);
+  if (!card) return;
+  document.querySelectorAll('.giorno-body.open').forEach(b => b.classList.remove('open'));
+  card.querySelector('.giorno-body').classList.add('open');
+  setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+}
+
+/* ===== SPESE (solo EUR) ===== */
+const BASE_SPESE = [
+  { id: 'b1', cat: 'voli',    name: 'Ryanair BGY → TFS (2 adulti)', note: 'FR2830 · 15 Ott 05:50–09:25 · G8WW6E', eur: null },
+  { id: 'b2', cat: 'voli',    name: 'Ryanair TFS → BGY (2 adulti)', note: 'FR2831 · 19 Ott 05:50–11:05 · G8WW6E', eur: null },
+  { id: 'b3', cat: 'voli',    name: 'Priorità + 2 bagagli a mano',  note: 'Solo Andrea · A/R',                    eur: null },
+  { id: 'b4', cat: 'alloggi', name: "Lella's Home",                 note: 'Playa Paraíso · 4 notti · 15→19 Ott',  eur: null },
+  { id: 'b5', cat: 'attiv',   name: 'Neptuno · balene & delfini',   note: 'D3 · 10:00 · 3h · da prenotare',       eur: null },
+  { id: 'b6', cat: 'cibo',    name: 'CHAR Fuego y Brasas',          note: 'D3 · cena importante · da prenotare',  eur: null },
+  { id: 'b7', cat: 'cibo',    name: 'Aperitivo + cena fuori',       note: 'D1 · prima sera',                      eur: null },
+  { id: 'b8', cat: 'cibo',    name: 'Pranzi (Duque, Roques, Los Cristianos)', note: 'D1–D4 · stima',              eur: null },
+  { id: 'b9', cat: 'trasp',   name: 'Transfer TFS ↔ Playa Paraíso', note: 'Arrivo 15/10 + partenza notturna 19/10', eur: null },
+  { id: 'b10', cat: 'trasp',  name: 'Parcheggio Bergamo (4 giorni)', note: 'BGY · 15→19 Ott',                    eur: null },
+  { id: 'b11', cat: 'varie',  name: 'Regalo per Davide & Merlino',  note: 'Ospitalità + due cene',                eur: null },
+];
+const CATS = [
+  { id: 'voli',    label: '✈️ Voli' },
+  { id: 'alloggi', label: '🏠 Alloggio' },
+  { id: 'trasp',   label: '🚐 Trasporti' },
+  { id: 'attiv',   label: '🎟 Attività' },
+  { id: 'cibo',    label: '🍽 Cibo' },
+  { id: 'varie',   label: '🎁 Varie' },
+];
+const SP_KEY = 'tenerife_spese_v1';
+function spLoad() { try { return JSON.parse(localStorage.getItem(SP_KEY) || '{"paid":{},"custom":[],"amt":{}}'); } catch (e) { return { paid: {}, custom: [], amt: {} }; } }
+function spSave(s) { try { localStorage.setItem(SP_KEY, JSON.stringify(s)); } catch (e) {} }
+function spFmtE(v) { return v.toLocaleString('it', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) + '€'; }
+function spAmount(item, s) { if (s.amt && s.amt[item.id] != null) return s.amt[item.id]; return item.eur; }
+
+function spRender() {
+  const s = spLoad(); s.amt = s.amt || {};
+  const all = [
+    ...BASE_SPESE.map(b => ({ ...b, eur: spAmount(b, s), paid: !!s.paid[b.id], isCustom: false })),
+    ...s.custom.map(c => ({ ...c, paid: !!s.paid[c.id], isCustom: true })),
+  ];
+  const sum = arr => arr.reduce((t, i) => t + (i.eur || 0), 0);
+  const tot = sum(all), paid = sum(all.filter(i => i.paid)), due = tot - paid;
+  const todo = all.filter(i => i.eur == null).length;
+
+  let html = `
+  <div class="sp-hero">
+    <div class="sp-hero-label">Spesa totale stimata</div>
+    <div class="sp-hero-val">${spFmtE(tot)}</div>
+    <div class="sp-hero-sub">Tutto in EUR · tocca un importo «da inserire» per compilarlo</div>
+    <div class="sp-mini-grid">
+      <div class="sp-mini"><div class="sp-mini-label">Pagato ✓</div><div class="sp-mini-val paid">${spFmtE(paid)}</div></div>
+      <div class="sp-mini"><div class="sp-mini-label">Da pagare</div><div class="sp-mini-val due">${spFmtE(due)}</div></div>
+    </div>
+    ${todo ? `<div class="sp-mini-grid" style="margin-top:8px;"><div class="sp-mini" style="grid-column:1/-1"><div class="sp-mini-label">Voci senza importo</div><div class="sp-mini-val todo" style="font-size:14px;">${todo} da inserire · non contano nel totale</div></div></div>` : ''}
+  </div>`;
+
+  CATS.forEach(cat => {
+    const items = all.filter(i => i.cat === cat.id);
+    html += `<div class="sp-cat">
+      <div class="sp-cat-title"><span>${cat.label}</span><button class="sp-add-btn" onclick="spOpenForm('${cat.id}')">+ Aggiungi</button></div>
+      <div class="sp-form" id="form-${cat.id}">
+        <div class="sp-form-row"><input class="sp-input" id="fi-name-${cat.id}" placeholder="Nome voce" /></div>
+        <div class="sp-form-row"><input class="sp-input" id="fi-note-${cat.id}" placeholder="Nota (opzionale)" /></div>
+        <div class="sp-form-row"><input class="sp-input" id="fi-amt-${cat.id}" type="number" min="0" step="0.01" placeholder="Importo €" style="max-width:130px;" />
+          <button class="sp-save-btn" onclick="spSaveItem('${cat.id}')">✓ Salva</button>
+          <button class="sp-cancel-btn" onclick="spCloseForm('${cat.id}')">Annulla</button></div>
+      </div>`;
+    if (!items.length) html += `<div class="sp-item"><div class="sp-item-info"><div class="sp-item-note">Nessuna voce</div></div></div>`;
+    items.forEach(item => {
+      const amtHtml = item.eur == null
+        ? `<div class="sp-item-amount todo" onclick="spEditAmt('${item.id}')">da inserire ✎</div>`
+        : `<div class="sp-item-amount ${item.paid ? 'paid-amount' : ''}" onclick="spEditAmt('${item.id}')">${spFmtE(item.eur)}</div>`;
+      html += `<div class="sp-item ${item.paid ? 'is-paid' : ''}">
+        <label class="sp-toggle" title="${item.paid ? 'Pagato' : 'Da pagare'}"><input type="checkbox" ${item.paid ? 'checked' : ''} onchange="spToggle('${item.id}', this.checked)"><span class="sp-toggle-slider"></span></label>
+        <div class="sp-item-info"><div class="sp-item-name ${item.paid ? 'paid-name' : ''}">${esc(item.name)}</div>${item.note ? `<div class="sp-item-note">${esc(item.note)}</div>` : ''}</div>
+        ${amtHtml}
+        ${item.isCustom ? `<button class="sp-del-btn" onclick="spDel('${item.id}')">✕</button>` : ''}
+      </div>`;
+    });
+    html += `<div class="sp-cat-total"><span>Totale ${cat.label.replace(/^\S+\s/, '')}</span><strong>${spFmtE(sum(items))}</strong></div></div>`;
+  });
+  html += `<p class="sp-rate-note">Importi e spunte restano salvati sul telefono</p>`;
+  document.getElementById('spese-app').innerHTML = html;
+}
+function spToggle(id, checked) { const s = spLoad(); checked ? (s.paid[id] = true) : delete s.paid[id]; spSave(s); spRender(); }
+function spOpenForm(cat) { document.querySelectorAll('.sp-form').forEach(f => f.classList.remove('open')); document.getElementById('form-' + cat).classList.add('open'); }
+function spCloseForm(cat) { document.getElementById('form-' + cat).classList.remove('open'); }
+function spSaveItem(cat) {
+  const name = (document.getElementById('fi-name-' + cat)?.value || '').trim();
+  const note = (document.getElementById('fi-note-' + cat)?.value || '').trim();
+  const amount = parseFloat(document.getElementById('fi-amt-' + cat)?.value);
+  if (!name || isNaN(amount) || amount < 0) { alert('Inserisci nome e importo validi'); return; }
+  const s = spLoad(); s.custom.push({ id: 'c' + Date.now(), cat, name, note, eur: amount }); spSave(s); spCloseForm(cat); spRender();
+}
+function spEditAmt(id) {
+  const s = spLoad(); s.amt = s.amt || {};
+  const base = BASE_SPESE.find(b => b.id === id);
+  const custom = s.custom.find(c => c.id === id);
+  const cur = base ? spAmount(base, s) : custom?.eur;
+  const v = prompt('Importo in € (vuoto per "da inserire")', cur == null ? '' : String(cur));
+  if (v === null) return;
+  const n = parseFloat(String(v).replace(',', '.'));
+  if (base) { isNaN(n) ? delete s.amt[id] : s.amt[id] = n; }
+  else if (custom) { custom.eur = isNaN(n) ? null : n; }
+  spSave(s); spRender();
+}
+function spDel(id) { const s = spLoad(); s.custom = s.custom.filter(c => c.id !== id); delete s.paid[id]; spSave(s); spRender(); }
+
+/* ===== METEO (Open-Meteo, località del giorno) ===== */
+const WMO_DESC = {
+  0: ['☀️', 'Sole'], 1: ['🌤', 'Per lo più sereno'], 2: ['⛅', 'Parzialmente nuvoloso'], 3: ['☁️', 'Coperto'],
+  45: ['🌫', 'Nebbia'], 48: ['🌫', 'Nebbia'], 51: ['🌦', 'Pioggerella leggera'], 53: ['🌦', 'Pioggerella'], 55: ['🌧', 'Pioggerella intensa'],
+  61: ['🌧', 'Pioggia leggera'], 63: ['🌧', 'Pioggia'], 65: ['🌧', 'Pioggia forte'], 71: ['🌨', 'Neve leggera'], 73: ['🌨', 'Neve'], 75: ['❄️', 'Neve forte'],
+  80: ['🌦', 'Rovesci leggeri'], 81: ['🌧', 'Rovesci'], 82: ['⛈', 'Rovesci forti'], 95: ['⛈', 'Temporale'], 96: ['⛈', 'Temporale con grandine'], 99: ['⛈', 'Temporale forte'],
+};
+// Medie climatiche di ottobre (fallback se la previsione non è disponibile)
+const CLIMA_OTT = {
+  sud:   { tmin: 20, tmax: 26, wind: 22, rain: '0.5', icon: '☀️', desc: 'Soleggiato, caldo secco' },
+  teide: { tmin: 6,  tmax: 15, wind: 30, rain: '0.8', icon: '🌤', desc: 'Sereno, fresco e ventoso in quota' },
+  ovest: { tmin: 19, tmax: 25, wind: 20, rain: '0.6', icon: '🌤', desc: 'Sereno, qualche nube sui rilievi' },
+};
+const ZONA_LABEL = { sud: 'Costa sud', teide: 'Teide (2.100 m)', ovest: 'Costa ovest' };
+
+function fetchWithTimeout(url, opts, ms = 8000) {
+  const ctrl = new AbortController(); const timer = setTimeout(() => ctrl.abort(), ms);
+  return fetch(url, { ...opts, signal: ctrl.signal }).finally(() => clearTimeout(timer));
+}
+async function loadMeteo() {
+  const container = document.getElementById('meteo-container');
+  container.innerHTML = '<div class="meteo-loading">⏳ Caricamento previsioni...</div>';
+  const lats = GIORNI.map(g => g.lat).join(','), lons = GIORNI.map(g => g.lon).join(',');
+  try {
+    const res = await fetchWithTimeout('https://api.open-meteo.com/v1/forecast?latitude=' + lats + '&longitude=' + lons +
+      '&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,windspeed_10m_max' +
+      '&timezone=Atlantic%2FCanary&start_date=' + GIORNI[0].data + '&end_date=' + GIORNI[GIORNI.length - 1].data, {}, 10000);
+    const data = await res.json();
+    const locs = Array.isArray(data) ? data : [data];
+    if (locs[0]?.daily?.time?.length) {
+      let html = '';
+      GIORNI.forEach((g, i) => {
+        const d = (locs[i] || locs[0]).daily || {};
+        let di = Array.isArray(d.time) ? d.time.indexOf(g.data) : -1; if (di < 0) di = i;
+        const z = CLIMA_OTT[g.zona];
+        const wmo = WMO_DESC[d.weathercode?.[di]] || [z.icon, z.desc];
+        const v = (arr, fb, f = Math.round) => arr?.[di] != null ? f(arr[di]) : fb;
+        html += meteoCard(g, wmo[0], wmo[1], v(d.temperature_2m_min, z.tmin), v(d.temperature_2m_max, z.tmax), v(d.windspeed_10m_max, z.wind), v(d.precipitation_sum, z.rain, x => x.toFixed(1)), 'Open-Meteo');
+      });
+      container.innerHTML = html + '<p class="meteo-note">✅ Previsioni reali (Open-Meteo) — aggiornate il ' + new Date().toLocaleString('it-IT') + '</p>';
+      window.meteoLoaded = true; return;
+    }
+  } catch (e) { /* fallback sotto */ }
+  let html = '';
+  GIORNI.forEach(g => { const c = CLIMA_OTT[g.zona]; html += meteoCard(g, c.icon, c.desc, c.tmin, c.tmax, c.wind, c.rain, 'Media ottobre'); });
+  container.innerHTML = html + '<p class="meteo-note">📊 Medie climatiche di ottobre — la previsione reale è disponibile da ~16 giorni prima</p>';
+  window.meteoLoaded = true;
+}
+function meteoCard(g, icon, desc, tmin, tmax, wind, rain, fonte) {
+  return `<div class="meteo-day-card"><div class="meteo-day-num">D${g.num}</div>
+    <div class="meteo-day-info"><div class="meteo-day-data">${g.label} · ${ZONA_LABEL[g.zona]}</div><div class="meteo-day-desc">${desc}</div>
+    <div class="meteo-day-temps">${tmin}°–${tmax}°C · 💨 ${wind} km/h · 🌧 ${rain} mm · <em>${fonte}</em></div></div>
+    <div class="meteo-icon">${icon}</div></div>`;
+}
+
+/* ===== COUNTDOWN ===== */
+(function () {
+  const target = new Date('2026-10-15T09:25:00+01:00').getTime();
+  const el = document.getElementById('countdown');
+  function tick() {
+    const d = target - Date.now();
+    if (d <= 0) { el.textContent = 'Siete a Tenerife ✦'; return; }
+    const days = Math.floor(d / 86400000), hours = Math.floor((d % 86400000) / 3600000);
+    el.textContent = `${days}g ${hours}h`;
+  }
+  tick(); setInterval(tick, 60000);
+})();
+
+/* ===== MAPS MODAL (punto / navigazione da un punto precedente) ===== */
+const navPoints = [];
+let currentTarget = null;
+const mapsModal = document.getElementById('maps-modal');
+const prevList = document.getElementById('maps-prev-list');
+function bindNavPoints() {
+  navPoints.length = 0;
+  document.querySelectorAll('.nav-point').forEach(el => {
+    navPoints.push({ day: +el.dataset.day, point: +el.dataset.point, label: el.dataset.label, maps: el.dataset.maps });
+    if (el._bound) return; el._bound = true;
+    el.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); openMapsModal(el); });
+  });
+}
+function openMapsModal(el) {
+  currentTarget = { day: +el.dataset.day, point: +el.dataset.point, label: el.dataset.label, maps: el.dataset.maps };
+  document.getElementById('maps-modal-sub').textContent = currentTarget.label;
+  prevList.innerHTML = ''; prevList.classList.add('maps-hidden');
+  document.getElementById('maps-main-actions').classList.remove('maps-hidden');
+  mapsModal.classList.remove('hidden');
+}
+document.getElementById('maps-close-btn').onclick = () => mapsModal.classList.add('hidden');
+mapsModal.addEventListener('click', e => { if (e.target === mapsModal) mapsModal.classList.add('hidden'); });
+document.getElementById('maps-point-btn').onclick = () => window.open(currentTarget.maps, '_blank');
+document.getElementById('maps-nav-btn').onclick = () => {
+  document.getElementById('maps-main-actions').classList.add('maps-hidden');
+  const previous = navPoints
+    .filter(p => p.day > 0 && (p.day < currentTarget.day || (p.day === currentTarget.day && p.point < currentTarget.point)))
+    .sort((a, b) => (b.day - a.day) || (b.point - a.point));   // dal più recente al più lontano
+  const seen = new Set();
+  prevList.innerHTML = '';
+  previous.forEach(p => {
+    if (seen.has(p.label)) return; seen.add(p.label);
+    const btn = document.createElement('button');
+    btn.innerText = `[D${p.day}] ${p.label} → ${currentTarget.label}`;
+    btn.onclick = () => window.open(`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(p.label + ' Tenerife')}&destination=${encodeURIComponent(currentTarget.label + ' Tenerife')}`, '_blank');
+    prevList.appendChild(btn);
+  });
+  if (!previous.length) { const b = document.createElement('button'); b.innerText = 'Nessun punto precedente disponibile'; b.disabled = true; prevList.appendChild(b); }
+  prevList.classList.remove('maps-hidden');
+};
+
+/* ===== INIT ===== */
+pianoRender();
+</script>
+
+<script>
+/* ===== PWA: icona + manifest + installazione Android/iOS ===== */
+(function () {
+  const ICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0b3a7a"/><stop offset="60%" stop-color="#0a2d5e"/><stop offset="100%" stop-color="#061722"/></linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2fc4e6"/><stop offset="100%" stop-color="#1a7fa0"/></linearGradient>
+    <linearGradient id="mnt" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3a2a33"/><stop offset="100%" stop-color="#1b1b2a"/></linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="url(#sky)"/>
+  <circle cx="356" cy="168" r="66" fill="#f6c445"/>
+  <circle cx="356" cy="168" r="92" fill="#f6c445" opacity="0.18"/>
+  <path d="M60 372 L220 150 L262 196 L300 164 L452 372 Z" fill="url(#mnt)"/>
+  <path d="M220 150 L250 192 L262 196 L285 180 L300 164 L270 128 Z" fill="#eef2f6" opacity="0.9"/>
+  <rect x="0" y="372" width="512" height="140" fill="url(#sea)"/>
+  <path d="M0 400 Q40 384 80 400 T160 400 T240 400 T320 400 T400 400 T480 400 T560 400" fill="none" stroke="#ffffff" stroke-width="10" stroke-opacity="0.55" stroke-linecap="round"/>
+  <path d="M0 446 Q40 430 80 446 T160 446 T240 446 T320 446 T400 446 T480 446 T560 446" fill="none" stroke="#ffffff" stroke-width="8" stroke-opacity="0.35" stroke-linecap="round"/>
+</svg>`;
+  function rasterize(svg) {
+    return new Promise(resolve => {
+      const url = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
+      const img = new Image();
+      img.onload = () => {
+        const make = s => { try { const c = document.createElement('canvas'); c.width = c.height = s; c.getContext('2d').drawImage(img, 0, 0, s, s); return c.toDataURL('image/png'); } catch (e) { return url; } };
+        resolve({ svg: url, p192: make(192), p512: make(512) });
+      };
+      img.onerror = () => resolve({ svg: url, p192: url, p512: url });
+      img.src = url;
+    });
+  }
+  const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const btn = document.getElementById('install-btn'), hint = document.getElementById('ios-hint');
+  let deferredPrompt = null;
+
+  rasterize(ICON_SVG).then(ic => {
+    document.getElementById('fav-icon').href = ic.svg;
+    document.getElementById('install-icon').src = ic.svg;
+    if (location.protocol === 'file:') {
+      // In locale non c'è il manifest statico: lo genero al volo
+      const manifest = { name: 'Tenerife 2026', short_name: 'Tenerife', description: 'Piano viaggio Tenerife · 15–19 Ottobre 2026', start_url: location.href, display: 'standalone', orientation: 'portrait', background_color: '#061722', theme_color: '#0b3a7a', lang: 'it',
+        icons: [{ src: ic.p192, sizes: '192x192', type: 'image/png', purpose: 'any' }, { src: ic.p512, sizes: '512x512', type: 'image/png', purpose: 'any' }, { src: ic.p512, sizes: '512x512', type: 'image/png', purpose: 'maskable' }] };
+      document.getElementById('app-manifest').href = URL.createObjectURL(new Blob([JSON.stringify(manifest)], { type: 'application/manifest+json' }));
+      document.getElementById('apple-icon').href = ic.p192;
+    }
+    if (isIOS() && !isStandalone() && btn) {
+      btn.hidden = false;
+      btn.addEventListener('click', () => {
+        hint.innerHTML = 'Per installare: tocca <b>Condividi</b> ⬆️, poi <b>"Aggiungi alla schermata Home"</b>.';
+        hint.hidden = false; clearTimeout(window._hintT); window._hintT = setTimeout(() => hint.hidden = true, 6500);
+      });
+    }
+  });
+  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPrompt = e; if (!isStandalone() && btn) btn.hidden = false; });
+  if (btn) btn.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    btn.disabled = true; deferredPrompt.prompt();
+    try { await deferredPrompt.userChoice; } catch (e) {}
+    deferredPrompt = null; btn.hidden = true; btn.disabled = false;
+  });
+  window.addEventListener('appinstalled', () => { if (btn) btn.hidden = true; deferredPrompt = null; });
+})();
+</script>
+</body>
+</html>
