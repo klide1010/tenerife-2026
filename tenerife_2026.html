@@ -302,7 +302,7 @@ a { color: var(--ocean); }
 <div class="tab-content active" id="tab-piano">
 <p class="section-label">5 giorni · programma di Davide + slot liberi</p>
 <div class="legend">
-<span><i class="i-dav"></i> Programma Davide</span>
+<span><i class="i-dav"></i> 🧭 = c'è Davide</span>
 <span><i class="i-lib"></i> Slot libero (da colmare)</span>
 <span><i class="i-noi"></i> Attività nostra</span>
 <span><i class="i-log"></i> Logistica</span>
@@ -431,6 +431,7 @@ a { color: var(--ocean); }
    DATI DEL VIAGGIO
    tipo:  volo | logistica | davide | libero | noi
    ora/fine: 'HH:MM'. stima:true quando Davide non ha dato un orario preciso.
+   icon: emoji dell'attività/luogo mostrata nel titolo (la bussola 🧭 nel badge = c'è Davide).
    Per colmare uno slot libero: cambia tipo in 'noi', metti titolo/desc.
    ===================================================================== */
 const MAPS = q => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q);
@@ -443,12 +444,12 @@ const GIORNI = [
     lat: 28.09, lon: -16.74, zona: 'sud',
     blocchi: [
       { ora: '05:50', fine: '09:25', tipo: 'volo', titolo: 'Volo FR2830 Bergamo → Tenerife Sud', desc: 'Partenza 05:50 ora italiana, arrivo 09:25 ora locale (4h35 di volo). Posti 29E/29D.', durata: 275 },
-      { ora: '09:25', fine: '12:00', tipo: 'davide', titolo: 'Arrivo a Tenerife', desc: 'Recupero bagagli, trasferimento, check-in a Lella\'s Home e caffè.', tag: 'arrivo', stima: true,
+      { ora: '09:25', fine: '12:00', tipo: 'davide', icon: '🧳', titolo: 'Arrivo a Tenerife', desc: 'Recupero bagagli, trasferimento, check-in a Lella\'s Home e caffè.', tag: 'arrivo', stima: true,
         places: [{ label: "Lella's Home · Playa Paraíso", q: 'Playa Paraiso Adeje Tenerife' }] },
-      { ora: '12:00', fine: '15:30', tipo: 'davide', titolo: 'Playa del Duque', desc: 'Pranzo sul mare, primo bagno e sole.', tag: 'mare', stima: true,
+      { ora: '12:00', fine: '15:30', tipo: 'davide', icon: '🏖', titolo: 'Playa del Duque', desc: 'Pranzo sul mare, primo bagno e sole.', tag: 'mare', stima: true,
         places: [{ label: 'Playa del Duque', q: 'Playa del Duque Tenerife' }] },
-      { id: 'd1-pom', ora: '15:30', fine: '19:00', tipo: 'libero', titolo: 'Pomeriggio libero', desc: 'Davide non ha previsto nulla tra il Duque e l\'aperitivo.' },
-      { ora: '19:00', fine: '23:00', tipo: 'davide', titolo: 'Aperitivo + cena fuori', desc: 'Prima sera semplice e bella.', tag: 'fuori', stima: true },
+      { id: 'd1-pom', ora: '15:30', fine: '19:00', tipo: 'libero', icon: '⬜', titolo: 'Pomeriggio libero', desc: 'Davide non ha previsto nulla tra il Duque e l\'aperitivo.' },
+      { ora: '19:00', fine: '23:00', tipo: 'davide', icon: '🍹', titolo: 'Aperitivo + cena fuori', desc: 'Prima sera semplice e bella.', tag: 'fuori', stima: true },
     ],
     notte: { nome: "Lella's Home", dove: 'Playa Paraíso · notte 1 di 4', q: 'Playa Paraiso Adeje Tenerife' },
   },
@@ -458,14 +459,14 @@ const GIORNI = [
     quote: 'Una giornata intera da dedicare alla montagna: strada panoramica, paesaggio vulcanico e tempo per fermarsi.',
     lat: 28.27, lon: -16.64, zona: 'teide',
     blocchi: [
-      { id: 'd2-mat', ora: '08:00', fine: '09:00', tipo: 'libero', titolo: 'Mattina presto', desc: 'Colazione in terrazza a Lella\'s Home prima della partenza.' },
-      { ora: '09:00', fine: '13:00', tipo: 'davide', titolo: 'Salita al Teide', desc: 'Soste panoramiche e Parco Nazionale.', tag: 'road trip', stima: true,
+      { id: 'd2-mat', ora: '08:00', fine: '09:00', tipo: 'libero', icon: '☕', titolo: 'Mattina presto', desc: 'Colazione in terrazza a Lella\'s Home prima della partenza.' },
+      { ora: '09:00', fine: '13:00', tipo: 'davide', icon: '🌋', titolo: 'Salita al Teide', desc: 'Soste panoramiche e Parco Nazionale.', tag: 'road trip', stima: true,
         places: [{ label: 'Parque Nacional del Teide', q: 'Parque Nacional del Teide' }] },
-      { ora: '13:00', fine: '14:30', tipo: 'davide', titolo: 'Roques de García', desc: 'Passeggiata e pranzo lungo il percorso.', tag: 'Teide', stima: true,
+      { ora: '13:00', fine: '14:30', tipo: 'davide', icon: '🥾', titolo: 'Roques de García', desc: 'Passeggiata e pranzo lungo il percorso.', tag: 'Teide', stima: true,
         places: [{ label: 'Roques de García', q: 'Roques de Garcia Tenerife' }] },
-      { ora: '14:30', fine: '16:00', tipo: 'logistica', titolo: 'Discesa e rientro a Playa Paraíso', desc: 'Circa 1h15 di strada dal Parco, più eventuali soste.', stima: true },
-      { id: 'd2-pom', ora: '16:00', fine: '19:30', tipo: 'libero', titolo: 'Tardo pomeriggio libero', desc: 'Doccia e riposo sono già previsti da Davide; il resto è vostro.' },
-      { ora: '19:30', fine: '23:30', tipo: 'davide', titolo: 'Cena da Davide ad Adeje', desc: 'Doccia, vino, tavola lunga e nessun ristorante. Merlino supervisiona.', tag: 'casa', stima: true,
+      { ora: '14:30', fine: '16:00', tipo: 'logistica', icon: '🚗', titolo: 'Discesa e rientro a Playa Paraíso', desc: 'Circa 1h15 di strada dal Parco, più eventuali soste.', stima: true },
+      { id: 'd2-pom', ora: '16:00', fine: '19:30', tipo: 'libero', icon: '⬜', titolo: 'Tardo pomeriggio libero', desc: 'Doccia e riposo sono già previsti da Davide; il resto è vostro.' },
+      { ora: '19:30', fine: '23:30', tipo: 'davide', icon: '🍷', titolo: 'Cena da Davide ad Adeje', desc: 'Doccia, vino, tavola lunga e nessun ristorante. Merlino supervisiona.', tag: 'casa', stima: true,
         places: [{ label: 'Adeje', q: 'Adeje Tenerife' }] },
     ],
     notte: { nome: "Lella's Home", dove: 'Playa Paraíso · notte 2 di 4', q: 'Playa Paraiso Adeje Tenerife' },
@@ -476,18 +477,18 @@ const GIORNI = [
     quote: 'Atlantico al mattino, curve e montagne nel pomeriggio, brace la sera. È la giornata più piena del viaggio.',
     lat: 28.24, lon: -16.84, zona: 'ovest',
     blocchi: [
-      { id: 'd3-mat', ora: '08:00', fine: '09:30', tipo: 'libero', titolo: 'Mattina presto', desc: 'Colazione; alle 09:30 si parte per Los Cristianos.' },
-      { ora: '09:30', fine: '10:00', tipo: 'logistica', titolo: 'Trasferimento a Los Cristianos e imbarco', desc: '~20 min di strada dal Playa Paraíso.', stima: true },
-      { ora: '10:00', fine: '13:00', tipo: 'davide', titolo: 'Neptuno · balene & delfini', desc: 'Uscita di circa 3 ore da Los Cristianos.', tag: 'da prenotare', book: true,
+      { id: 'd3-mat', ora: '08:00', fine: '09:30', tipo: 'libero', icon: '☕', titolo: 'Mattina presto', desc: 'Colazione; alle 09:30 si parte per Los Cristianos.' },
+      { ora: '09:30', fine: '10:00', tipo: 'logistica', icon: '🚗', titolo: 'Trasferimento a Los Cristianos e imbarco', desc: '~20 min di strada dal Playa Paraíso.', stima: true },
+      { ora: '10:00', fine: '13:00', tipo: 'davide', icon: '🐋', titolo: 'Neptuno · balene & delfini', desc: 'Uscita di circa 3 ore da Los Cristianos.', tag: 'da prenotare', book: true,
         places: [{ label: 'Porto di Los Cristianos', q: 'Puerto de Los Cristianos Tenerife' }] },
-      { id: 'd3-pranzo', ora: '13:00', fine: '14:30', tipo: 'libero', titolo: 'Pranzo libero', desc: 'Davide non indica il pranzo: 1h30 a Los Cristianos o lungo la strada per Santiago del Teide.' },
-      { ora: '14:30', fine: '17:00', tipo: 'davide', titolo: 'Santiago del Teide → Masca', desc: 'Mirador, strada panoramica e borgo.', tag: 'panorama', stima: true,
+      { id: 'd3-pranzo', ora: '13:00', fine: '14:30', tipo: 'libero', icon: '🍽', titolo: 'Pranzo libero', desc: 'Davide non indica il pranzo: 1h30 a Los Cristianos o lungo la strada per Santiago del Teide.' },
+      { ora: '14:30', fine: '17:00', tipo: 'davide', icon: '⛰', titolo: 'Santiago del Teide → Masca', desc: 'Mirador, strada panoramica e borgo.', tag: 'panorama', stima: true,
         places: [{ label: 'Santiago del Teide', q: 'Santiago del Teide Tenerife' }, { label: 'Masca', q: 'Masca Tenerife' }] },
-      { ora: '17:00', fine: '18:30', tipo: 'davide', titolo: 'Los Gigantes', desc: 'Sosta breve prima del rientro.', tag: 'sosta', stima: true,
+      { ora: '17:00', fine: '18:30', tipo: 'davide', icon: '🪨', titolo: 'Los Gigantes', desc: 'Sosta breve prima del rientro.', tag: 'sosta', stima: true,
         places: [{ label: 'Los Gigantes', q: 'Los Gigantes Tenerife' }] },
-      { ora: '18:30', fine: '19:15', tipo: 'logistica', titolo: 'Rientro e doccia', desc: '~30 min da Los Gigantes a Playa Paraíso.', stima: true },
-      { id: 'd3-sera', ora: '19:15', fine: '20:30', tipo: 'libero', titolo: 'Prima di cena', desc: 'Poco più di un\'ora: aperitivo per conto vostro?' },
-      { ora: '20:30', fine: '23:30', tipo: 'davide', titolo: 'CHAR Fuego y Brasas', desc: 'La cena importante del viaggio.', tag: 'da prenotare', book: true, stima: true,
+      { ora: '18:30', fine: '19:15', tipo: 'logistica', icon: '🚿', titolo: 'Rientro e doccia', desc: '~30 min da Los Gigantes a Playa Paraíso.', stima: true },
+      { id: 'd3-sera', ora: '19:15', fine: '20:30', tipo: 'libero', icon: '⬜', titolo: 'Prima di cena', desc: 'Poco più di un\'ora: aperitivo per conto vostro?' },
+      { ora: '20:30', fine: '23:30', tipo: 'davide', icon: '🔥', titolo: 'CHAR Fuego y Brasas', desc: 'La cena importante del viaggio.', tag: 'da prenotare', book: true, stima: true,
         places: [{ label: 'CHAR Fuego y Brasas', q: 'CHAR Fuego y Brasas Tenerife' }] },
     ],
     notte: { nome: "Lella's Home", dove: 'Playa Paraíso · notte 3 di 4', q: 'Playa Paraiso Adeje Tenerife' },
@@ -498,15 +499,15 @@ const GIORNI = [
     quote: 'Niente impresa epica: mare, lungomare, pranzo e ultimo sole. Esattamente quello che serve prima di un volo alle cinque del mattino.',
     lat: 28.05, lon: -16.72, zona: 'sud',
     blocchi: [
-      { id: 'd4-mat', ora: '08:00', fine: '10:30', tipo: 'libero', titolo: 'Mattina libera', desc: 'Due ore e mezza prima della spiaggia.' },
-      { ora: '10:30', fine: '13:00', tipo: 'davide', titolo: 'Playa de Las Vistas', desc: 'Bagno, sabbia e calma.', tag: 'mare', stima: true, flex: true,
+      { id: 'd4-mat', ora: '08:00', fine: '10:30', tipo: 'libero', icon: '☕', titolo: 'Mattina libera', desc: 'Due ore e mezza prima della spiaggia.' },
+      { ora: '10:30', fine: '13:00', tipo: 'davide', icon: '🏖', titolo: 'Playa de Las Vistas', desc: 'Bagno, sabbia e calma.', tag: 'mare', stima: true, flex: true,
         places: [{ label: 'Playa de Las Vistas', q: 'Playa de Las Vistas Tenerife' }] },
-      { ora: '13:00', fine: '15:30', tipo: 'davide', titolo: 'Los Cristianos', desc: 'Passeggiata e pranzo senza programma rigido.', tag: 'passeggio', stima: true, flex: true,
+      { ora: '13:00', fine: '15:30', tipo: 'davide', icon: '🚶', titolo: 'Los Cristianos', desc: 'Passeggiata e pranzo senza programma rigido.', tag: 'passeggio', stima: true, flex: true,
         places: [{ label: 'Los Cristianos', q: 'Los Cristianos Tenerife' }] },
-      { ora: '15:30', fine: '18:00', tipo: 'davide', titolo: 'Las Américas', desc: 'Caffè, ultimo sole e un giro sul lungomare.', tag: 'easy', stima: true, flex: true,
+      { ora: '15:30', fine: '18:00', tipo: 'davide', icon: '🌅', titolo: 'Las Américas', desc: 'Caffè, ultimo sole e un giro sul lungomare.', tag: 'easy', stima: true, flex: true,
         places: [{ label: 'Playa de Las Américas', q: 'Playa de Las Americas Tenerife' }] },
-      { id: 'd4-pom', ora: '18:00', fine: '19:00', tipo: 'libero', titolo: 'Prima dell\'ultima cena', desc: 'Un\'ora per rientrare e iniziare le valigie.' },
-      { ora: '19:00', fine: '22:00', tipo: 'davide', titolo: 'Ultima cena da Davide ad Adeje', desc: 'Presto. Poi valigie e qualche ora di sonno.', tag: 'casa', stima: true,
+      { id: 'd4-pom', ora: '18:00', fine: '19:00', tipo: 'libero', icon: '🧳', titolo: 'Prima dell\'ultima cena', desc: 'Un\'ora per rientrare e iniziare le valigie.' },
+      { ora: '19:00', fine: '22:00', tipo: 'davide', icon: '🍷', titolo: 'Ultima cena da Davide ad Adeje', desc: 'Presto. Poi valigie e qualche ora di sonno.', tag: 'casa', stima: true,
         places: [{ label: 'Adeje', q: 'Adeje Tenerife' }] },
     ],
     notte: { nome: "Lella's Home", dove: 'Playa Paraíso · notte 4 di 4 · sveglia ~03:15', q: 'Playa Paraiso Adeje Tenerife' },
@@ -517,10 +518,10 @@ const GIORNI = [
     quote: null,
     lat: 28.04, lon: -16.57, zona: 'sud',
     blocchi: [
-      { ora: '03:15', fine: '03:45', tipo: 'logistica', titolo: 'Sveglia e check-out', desc: 'Valigie già pronte dalla sera prima.', stima: true },
-      { ora: '03:45', fine: '04:10', tipo: 'logistica', titolo: 'Trasferimento a Tenerife Sud (TFS)', desc: '~25 min. Da decidere: taxi o passaggio di Davide.', stima: true,
+      { ora: '03:15', fine: '03:45', tipo: 'logistica', icon: '⏰', titolo: 'Sveglia e check-out', desc: 'Valigie già pronte dalla sera prima.', stima: true },
+      { ora: '03:45', fine: '04:10', tipo: 'logistica', icon: '🚕', titolo: 'Trasferimento a Tenerife Sud (TFS)', desc: '~25 min. Da decidere: taxi o passaggio di Davide.', stima: true,
         places: [{ label: 'Aeroporto Tenerife Sur', q: 'Aeropuerto Tenerife Sur' }] },
-      { ora: '04:10', fine: '05:50', tipo: 'logistica', titolo: 'Controlli e imbarco', desc: 'Priorità per Andrea; Michela solo bagaglio piccolo.' },
+      { ora: '04:10', fine: '05:50', tipo: 'logistica', icon: '🛂', titolo: 'Controlli e imbarco', desc: 'Priorità per Andrea; Michela solo bagaglio piccolo.' },
       { ora: '05:50', fine: '11:05', tipo: 'volo', titolo: 'Volo FR2831 Tenerife Sud → Bergamo', desc: 'Partenza 05:50 ora locale, arrivo 11:05 ora italiana (4h15 di volo).', durata: 255 },
     ],
     notte: null,
@@ -610,7 +611,7 @@ function pianoRender() {
       html += `<div class="blocco t-${b.tipo}">
         <div class="bl-ora">${tilde}${b.ora}<small>→ ${b.fine}</small></div>
         <div class="bl-main">
-          <div class="bl-titolo">${t.icon} ${esc(b.titolo)}</div>
+          <div class="bl-titolo">${b.icon || t.icon} ${esc(b.titolo)}</div>
           ${b.desc ? `<div class="bl-desc">${esc(b.desc)}${placeLinks(b, g.num, counter)}</div>` : ''}
           ${tags ? `<div class="bl-tags">${tags}</div>` : ''}
           ${noteHtml}
