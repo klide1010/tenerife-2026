@@ -38,4 +38,6 @@ Se l'attività occupa solo una parte dello slot, spezza il blocco in due (uno `n
 
 ## Deploy
 
+Online su GitHub Pages: https://klide1010.github.io/tenerife-2026/
+
 File statici: basta copiarli su un hosting qualsiasi (GitHub Pages, Cloudflare Pages, cartella del tema WordPress come per Islanda). Nessun proxy PHP: Tenerife non ha bisogno di feed strade/allerte.
