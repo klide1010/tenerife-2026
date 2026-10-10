@@ -269,6 +269,31 @@ a { color: var(--ocean); }
 .maps-prev-list button:disabled { color: var(--muted); }
 .maps-hidden { display: none !important; }
 .maps-close-btn { margin-top: 12px; width: 100%; background: transparent; color: var(--muted-light); border: 0.5px solid var(--border); border-radius: 10px; padding: 10px; font-family: var(--font-body); font-size: 12px; cursor: pointer; }
+
+/* ===== IDEE ===== */
+.idea-filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+.idea-chip { background: var(--surface2); color: var(--muted-light); border: 0.5px solid var(--border2); border-radius: 999px; padding: 5px 11px; font-family: var(--font-body); font-size: 11px; font-weight: 700; cursor: pointer; }
+.idea-chip.on { background: rgba(246,196,69,0.15); color: var(--sun); border-color: rgba(246,196,69,0.5); }
+.idea-card { background: var(--card); border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; border: 0.5px solid var(--border); }
+.idea-card.star { border-color: rgba(246,196,69,0.55); }
+.idea-head { display: flex; gap: 10px; align-items: flex-start; }
+.idea-icon { font-size: 24px; line-height: 1; padding-top: 2px; }
+.idea-titles { flex: 1; min-width: 0; }
+.idea-nome { font-size: 14px; font-weight: 700; color: var(--text); line-height: 1.3; }
+.idea-zona { font-size: 10px; color: var(--muted); font-weight: 700; letter-spacing: .5px; text-transform: uppercase; margin-top: 2px; }
+.idea-star { background: none; border: 0; font-size: 20px; cursor: pointer; padding: 0 2px; line-height: 1; filter: grayscale(1); opacity: .5; }
+.idea-card.star .idea-star { filter: none; opacity: 1; }
+.idea-desc { font-size: 12px; color: var(--muted-light); line-height: 1.5; margin-top: 8px; }
+.idea-facts { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 8px; }
+.idea-fit { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+.fit { display: flex; flex-direction: column; gap: 2px; font-size: 12px; color: var(--muted-light); border-radius: 8px; padding: 7px 10px; cursor: pointer; line-height: 1.4; background: rgba(45,212,168,0.06); border: 1px solid rgba(45,212,168,0.35); }
+.fit b { color: var(--aqua); font-size: 11px; }
+.fit.stretto { background: rgba(246,196,69,0.06); border-color: rgba(246,196,69,0.4); }
+.fit.stretto b { color: var(--sun); }
+.fit.variante { background: rgba(47,196,230,0.06); border-color: rgba(47,196,230,0.35); }
+.fit.variante b { color: var(--ocean); }
+.slot-ideas { margin-top: 8px; font-size: 11px; color: var(--muted-light); }
+.slot-ideas a { color: var(--sun-light); text-decoration: none; border-bottom: 1px dotted rgba(246,196,69,0.5); cursor: pointer; }
 </style>
 </head>
 <body>
@@ -317,6 +342,11 @@ a { color: var(--ocean); }
 <!-- ========== LIBERI ========== -->
 <div class="tab-content" id="tab-liberi">
 <div id="liberi-app"></div>
+</div>
+
+<!-- ========== IDEE ========== -->
+<div class="tab-content" id="tab-idee">
+<div id="idee-app"></div>
 </div>
 
 <!-- ========== SPESE ========== -->
@@ -408,6 +438,7 @@ a { color: var(--ocean); }
 <nav class="bottom-nav">
 <button class="nav-btn active" onclick="showTab('piano')"><span class="n-icon">🗺</span>Piano</button>
 <button class="nav-btn" onclick="showTab('liberi')"><span class="n-icon">⏱</span>Liberi</button>
+<button class="nav-btn" onclick="showTab('idee')"><span class="n-icon">💡</span>Idee</button>
 <button class="nav-btn" onclick="showTab('spese')"><span class="n-icon">💶</span>Spese</button>
 <button class="nav-btn" onclick="showTab('meteo')"><span class="n-icon">🌤</span>Meteo</button>
 <button class="nav-btn" onclick="showTab('info')"><span class="n-icon">ℹ️</span>Info</button>
@@ -563,6 +594,7 @@ function showTab(name) {
   if (name === 'meteo' && !window.meteoLoaded) loadMeteo();
   if (name === 'spese') spRender();
   if (name === 'liberi') liberiRender();
+  if (name === 'idee') ideeRender();
 }
 
 /* ===== PIANO ===== */
@@ -611,6 +643,8 @@ function pianoRender() {
           <textarea placeholder="La vostra idea per questo slot…" oninput="noteSave('${b.id}', this.value)" onclick="event.stopPropagation()">${esc(notes[b.id] || '')}</textarea>
           <div class="lib-note-hint">Salvato sul telefono · per inserirlo nel programma passalo ad Andrea/Claude</div>
         </div>`;
+        const ideas = IDEE.filter(i => i.fit.some(f => f.slot === b.id));
+        if (ideas.length) noteHtml += `<div class="slot-ideas">💡 Ci starebbe: ${ideas.map(i => `<a onclick="event.stopPropagation(); goToIdea('${i.id}')">${i.icon} ${esc(i.nome.split(' · ')[0])}</a>`).join(' · ')}</div>`;
       }
       html += `<div class="blocco t-${b.tipo}">
         <div class="bl-ora">${tilde}${b.ora}<small>→ ${b.fine}</small></div>
@@ -701,6 +735,111 @@ function goToDay(n) {
   document.querySelectorAll('.giorno-body.open').forEach(b => b.classList.remove('open'));
   card.querySelector('.giorno-body').classList.add('open');
   setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+}
+
+/* ===== IDEE DA INCASTRARE =====
+   Tappe non previste da Davide. fit = dove ci stanno, con orario indicativo:
+   tipo 'ok' (ci sta nello slot), 'stretto' (ci sta ma tirato), 'variante' (cambia un pezzo del programma di Davide).
+   Quando Andrea sceglie, la si sposta in GIORNI come blocco tipo 'noi'. */
+const IDEE_CAT = { verde: '🌿 Giardini & bananeti', mare: '🌊 Mare', borghi: '🏘 Borghi', natura: '🥾 Natura' };
+const IDEE = [
+  { id: 'bananeto', cat: 'verde', icon: '🍌', nome: 'Bananeto · Finca Las Margaritas', zona: 'Las Galletas (Arona) · ~30 min',
+    desc: 'Piantagione di banane in serra attiva dal 1977, nella zona bananiera più grande del sud. Visita guidata ~75 min con assaggio (banane, gofio). Esiste anche la visita libera.',
+    facts: ['~1h15', 'da ~12 €', 'Prenotare'], book: true, q: 'Finca Las Margaritas Las Galletas Tenerife',
+    fit: [
+      { tipo: 'stretto', g: 4, slot: 'd4-mat', ora: '08:30', fine: '10:30', txt: 'Solo con visita libera o se aprono presto: la guidata risulta alle 10:15 (mar/mer/gio/sab), domenica da verificare. Poi Las Vistas da ~11:00.' },
+      { tipo: 'variante', g: 1, slot: 'd1-pom', ora: '15:30', fine: '18:30', txt: 'Gio 15 è giorno di visite guidate ma solo al mattino: fattibile solo se accettano visite libere nel pomeriggio.' },
+    ] },
+  { id: 'botanico-puerto', cat: 'verde', icon: '🌴', nome: 'Jardín Botánico · Puerto de la Cruz', zona: 'Nord · ~1h15 da Playa Paraíso (~45 min dal Teide)',
+    desc: 'Il "Jardín de Aclimatación de La Orotava", del 1788: alberi tropicali giganti, ficus strangolatori, palme. Piccolo, si gira in un\'ora.',
+    facts: ['~1h', '~3 €'], q: 'Jardin Botanico Puerto de la Cruz',
+    fit: [
+      { tipo: 'variante', g: 2, slot: 'd2-pom', ora: '15:30', fine: '16:45', txt: 'Dal Teide si scende a NORD (La Orotava) invece che a sud: Roques 14:30 → Botanico 15:30–16:45 → autostrada ~1h15 → Playa Paraíso 18:15, doccia, cena da Davide 19:30.' },
+    ] },
+  { id: 'sitio-litre', cat: 'verde', icon: '🌸', nome: 'Jardín de Orquídeas · Sitio Litre', zona: 'Puerto de la Cruz · a 10 min dal Botanico',
+    desc: 'Il giardino più antico dell\'isola (fine \'700): orchidee, dragos e una casa storica inglese. Si abbina al Botanico nella stessa discesa a nord.',
+    facts: ['~45 min', 'a pagamento'], q: 'Sitio Litre Jardin de Orquideas Puerto de la Cruz',
+    fit: [
+      { tipo: 'variante', g: 2, slot: 'd2-pom', ora: '16:45', fine: '17:30', txt: 'Dopo il Botanico, solo se non siete stanchi: rientro a Playa Paraíso ~18:45, cena da Davide alle 19:30 con poca doccia.' },
+    ] },
+  { id: 'palmetum', cat: 'verde', icon: '🌴', nome: 'Palmetum · Santa Cruz', zona: 'Santa Cruz · ~1h di autostrada',
+    desc: 'Oltre 400 specie di palme su 12 ettari costruiti sopra una vecchia discarica, con vista sul porto. Aperto ~10:00–18:00, ultimo ingresso un\'ora prima.',
+    facts: ['~1h15', '~6 €'], q: 'Palmetum Santa Cruz de Tenerife',
+    fit: [
+      { tipo: 'stretto', g: 1, slot: 'd1-pom', ora: '15:30', fine: '18:45', txt: 'Partenza 15:30 → Palmetum 16:30–17:45 → rientro 18:45 per l\'aperitivo. Fattibile, ma dopo la sveglia alle 3 e il volo è pesante.' },
+    ] },
+  { id: 'caleta', cat: 'mare', icon: '🐟', nome: 'La Caleta · passeggiata sul mare', zona: 'Costa Adeje · a piedi dal Duque',
+    desc: 'Ex villaggio di pescatori a 2 km dal Duque, sentiero lungo la costa. Ristorantini di pesce e tramonto. Dietro c\'è la spiaggia selvaggia di Diego Hernández.',
+    facts: ['~1h30', 'gratis'], q: 'La Caleta Adeje Tenerife',
+    fit: [
+      { tipo: 'ok', g: 1, slot: 'd1-pom', ora: '16:30', fine: '18:30', txt: 'Dal Duque a piedi lungo il mare, aperitivo a La Caleta, poi si va alla cena. Il più facile di tutti.' },
+    ] },
+  { id: 'tartarughe', cat: 'mare', icon: '🐢', nome: 'El Puertito · snorkeling con le tartarughe', zona: 'Adeje · ~15 min',
+    desc: 'Caletta con barche di pescatori dove le tartarughe marine arrivano a riva. Maschera e boccaglio; meglio al mattino, mare più calmo e meno gente.',
+    facts: ['~2h', 'gratis'], q: 'El Puertito de Adeje Tenerife',
+    fit: [
+      { tipo: 'ok', g: 4, slot: 'd4-mat', ora: '08:15', fine: '10:15', txt: 'Mattina presto a El Puertito, poi Las Vistas alle 10:30 come da programma.' },
+      { tipo: 'ok', g: 1, slot: 'd1-pom', ora: '15:45', fine: '18:00', txt: 'In alternativa dopo il Duque (pomeriggio più mosso).' },
+    ] },
+  { id: 'barranco', cat: 'natura', icon: '🥾', nome: 'Barranco del Infierno', zona: 'Adeje (Calle Los Molinos) · ~15 min',
+    desc: 'Sentiero in canyon fino a una cascata, ~6,5 km andata e ritorno. Accesso contingentato: prenotazione obbligatoria su barrancodelinfierno.es, si esaurisce.',
+    facts: ['~3h', '~15 €', 'Prenotare'], book: true, q: 'Barranco del Infierno Adeje',
+    fit: [
+      { tipo: 'variante', g: 4, slot: 'd4-mat', ora: '08:00', fine: '11:00', txt: 'Primo turno del mattino; Las Vistas slitta a ~11:15 (Davide l\'ha messa "senza programma rigido").' },
+    ] },
+  { id: 'teleferico', cat: 'natura', icon: '🚡', nome: 'Teleférico del Teide', zona: 'Dentro il Parco · D2',
+    desc: 'Funivia fino a 3.555 m in 8 minuti. Biglietto a orario, da prenotare online; chiude con vento forte. Per la vetta vera serve un permesso separato.',
+    facts: ['~1h30', 'Prenotare'], book: true, q: 'Teleferico del Teide',
+    fit: [
+      { tipo: 'variante', g: 2, slot: null, ora: '10:30', fine: '12:00', txt: 'Dentro la "Salita al Teide" di Davide: corsa alle ~10:30, poi Roques de García come previsto.' },
+    ] },
+  { id: 'adeje-paese', cat: 'borghi', icon: '⛪', nome: 'Adeje paese · Calle Grande', zona: 'Adeje centro · ~15 min',
+    desc: 'Il paese vero sopra la costa: Calle Grande, chiesa di Santa Úrsula, Casa Fuerte. Una birra in piazza prima di salire da Davide.',
+    facts: ['~1h', 'gratis'], q: 'Calle Grande Adeje Tenerife',
+    fit: [
+      { tipo: 'ok', g: 2, slot: 'd2-pom', ora: '18:15', fine: '19:15', txt: 'Dopo doccia e riposo, giro in paese e poi dritti alla cena da Davide (è ad Adeje).' },
+      { tipo: 'ok', g: 4, slot: 'd4-pom', ora: '18:00', fine: '18:50', txt: 'Ultimo giro prima dell\'ultima cena, sempre ad Adeje.' },
+    ] },
+  { id: 'arena', cat: 'mare', icon: '🌋', nome: 'Playa de la Arena · sabbia nera', zona: 'Puerto de Santiago · 5 min da Los Gigantes',
+    desc: 'Piccola spiaggia di sabbia vulcanica nera, con piscine naturali lì vicino. Ideale per un bagno veloce al rientro da Masca.',
+    facts: ['~45 min', 'gratis'], q: 'Playa de la Arena Puerto de Santiago Tenerife',
+    fit: [
+      { tipo: 'stretto', g: 3, slot: null, ora: '17:45', fine: '18:30', txt: 'Al posto di parte della sosta a Los Gigantes: bagno sulla sabbia nera, rientro ~19:00, CHAR alle 20:30.' },
+    ] },
+];
+const IDEE_KEY = 'tenerife_idee_v1';
+let ideeFiltro = 'tutte';
+function ideeStars() { try { return JSON.parse(localStorage.getItem(IDEE_KEY) || '{}'); } catch (e) { return {}; } }
+function ideeStar(id) { try { const s = ideeStars(); s[id] ? delete s[id] : s[id] = true; localStorage.setItem(IDEE_KEY, JSON.stringify(s)); } catch (e) {} ideeRender(); }
+function ideeSetFiltro(f) { ideeFiltro = f; ideeRender(); }
+function ideeRender() {
+  const stars = ideeStars();
+  const giorno = n => GIORNI.find(g => g.num === n);
+  const FIT_LABEL = { ok: 'ci sta', stretto: 'ci sta, tirato', variante: 'cambia il programma' };
+  const chips = [['tutte', 'Tutte'], ['star', '⭐ Scelte'], ...Object.entries(IDEE_CAT)];
+  const list = IDEE.filter(i => ideeFiltro === 'tutte' || (ideeFiltro === 'star' ? stars[i.id] : i.cat === ideeFiltro));
+  let html = `<p class="section-label">Tappe da incastrare</p>
+  <div class="info-note" style="margin-bottom:14px;">Posti non previsti da Davide, ognuno con <strong>dove ci sta e a che ora</strong>. Segna con ⭐ quelli che vi piacciono e dimmeli: li inserisco nel Piano come attività nostra.</div>
+  <div class="idea-filters">${chips.map(([k, l]) => `<button class="idea-chip ${ideeFiltro === k ? 'on' : ''}" onclick="ideeSetFiltro('${k}')">${l}</button>`).join('')}</div>`;
+  if (!list.length) html += `<div class="info-note">Nessuna idea qui${ideeFiltro === 'star' ? ': tocca ⭐ su una tappa per sceglierla' : ''}.</div>`;
+  list.forEach(i => {
+    html += `<div class="idea-card ${stars[i.id] ? 'star' : ''}" id="idea-${i.id}">
+      <div class="idea-head">
+        <div class="idea-icon">${i.icon}</div>
+        <div class="idea-titles"><div class="idea-nome">${esc(i.nome)}</div><div class="idea-zona">${esc(i.zona)}</div></div>
+        <button class="idea-star" aria-label="Scegli" onclick="ideeStar('${i.id}')">⭐</button>
+      </div>
+      <div class="idea-desc">${esc(i.desc)} <a class="place-link" href="${MAPS(i.q)}" target="_blank">📍 Maps</a></div>
+      <div class="idea-facts">${i.facts.map(f => `<span class="tag ${f === 'Prenotare' ? 'book' : (/^~?\d+h|min/.test(f) ? 'dur' : '')}">${esc(f)}</span>`).join('')}</div>
+      <div class="idea-fit">${i.fit.map(f => { const g = giorno(f.g); return `<div class="fit ${f.tipo}" onclick="goToDay(${f.g})"><b>${g.label.replace(' Ott', '')} · ${f.ora}–${f.fine}</b><span><em style="font-style:normal;font-weight:700;">${FIT_LABEL[f.tipo]}</em> · ${esc(f.txt)}</span></div>`; }).join('')}</div>
+    </div>`;
+  });
+  document.getElementById('idee-app').innerHTML = html;
+}
+function goToIdea(id) {
+  ideeFiltro = 'tutte'; showTab('idee');
+  const el = document.getElementById('idea-' + id);
+  if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
 }
 
 /* ===== SPESE (solo EUR) ===== */
