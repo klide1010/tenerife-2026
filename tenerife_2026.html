@@ -405,7 +405,6 @@ a { color: var(--ocean); }
 
 <p class="section-label" style="margin-top:20px;">Da prenotare</p>
 <div class="info-card">
-<div class="info-row"><span class="info-key">Sab 17 · 10:00</span><span class="info-val">Neptuno · balene &amp; delfini (3h, Los Cristianos)</span></div>
 <div class="info-row"><span class="info-key">Sab 17 · sera</span><span class="info-val">CHAR Fuego y Brasas · la cena importante</span></div>
 <div class="info-row"><span class="info-key">Lun 19 · ~03:45</span><span class="info-val">Transfer notturno per TFS (taxi o Davide?)</span></div>
 </div>
@@ -495,7 +494,7 @@ const GIORNI = [
     lat: 28.27, lon: -16.64, zona: 'teide',
     blocchi: [
       { id: 'd2-mat', ora: '08:00', fine: '09:00', tipo: 'libero', icon: '☕', titolo: 'Mattina presto', desc: 'Colazione in terrazza a Lella\'s Home prima della partenza.' },
-      { ora: '09:00', fine: '13:00', tipo: 'davide', icon: '🌋', titolo: 'Salita al Teide', desc: 'Soste panoramiche e Parco Nazionale.', tag: 'road trip', stima: true,
+      { ora: '09:00', fine: '13:00', tipo: 'davide', icon: '🌋', titolo: 'Salita al Teide', desc: 'Si sale tutti insieme in furgone, con soste panoramiche nel Parco Nazionale. Eventuali prenotazioni le gestisce Davide con i suoi amici.', tag: 'in furgone', stima: true, gestisce: true,
         places: [{ label: 'Parque Nacional del Teide', q: 'Parque Nacional del Teide' }] },
       { ora: '13:00', fine: '14:30', tipo: 'davide', icon: '🥾', titolo: 'Roques de García', desc: 'Passeggiata e pranzo lungo il percorso.', tag: 'Teide', stima: true,
         places: [{ label: 'Roques de García', q: 'Roques de Garcia Tenerife' }] },
@@ -514,7 +513,7 @@ const GIORNI = [
     blocchi: [
       { id: 'd3-mat', ora: '08:00', fine: '09:30', tipo: 'libero', icon: '☕', titolo: 'Mattina presto', desc: 'Colazione; alle 09:30 si parte per Los Cristianos.' },
       { ora: '09:30', fine: '10:00', tipo: 'logistica', icon: '🚗', titolo: 'Trasferimento a Los Cristianos e imbarco', desc: '~20 min di strada dal Playa Paraíso.', stima: true },
-      { ora: '10:00', fine: '13:00', tipo: 'davide', icon: '🐋', titolo: 'Neptuno · balene & delfini', desc: 'Uscita di circa 3 ore da Los Cristianos.', tag: 'da prenotare', book: true,
+      { ora: '10:00', fine: '13:00', tipo: 'davide', icon: '🐋', titolo: 'Neptuno · balene & delfini', desc: 'Uscita di circa 3 ore da Los Cristianos. Davide non viene: siamo solo noi due. La prenotazione la sistema lui con i suoi amici.', assente: true, gestisce: true,
         places: [{ label: 'Porto di Los Cristianos', q: 'Puerto de Los Cristianos Tenerife' }] },
       { id: 'd3-pranzo', ora: '13:00', fine: '14:30', tipo: 'libero', icon: '🍽', titolo: 'Pranzo libero', desc: 'Davide non indica il pranzo: 1h30 a Los Cristianos o lungo la strada per Santiago del Teide.' },
       { ora: '14:30', fine: '17:00', tipo: 'davide', icon: '⛰', titolo: 'Santiago del Teide → Masca', desc: 'Mirador, strada panoramica e borgo.', tag: 'panorama', stima: true,
@@ -612,7 +611,7 @@ function pianoRender() {
   GIORNI.forEach(g => {
     const counter = { n: 0 };
     const free = g.blocchi.filter(b => b.tipo === 'libero').reduce((s, b) => s + durata(b), 0);
-    const dav = g.blocchi.filter(b => b.tipo === 'davide').reduce((s, b) => s + durata(b), 0);
+    const dav = g.blocchi.filter(b => b.tipo === 'davide' && !b.assente).reduce((s, b) => s + durata(b), 0);
     html += `<div class="giorno-card" id="giorno-${g.num}">
       <div class="giorno-header" onclick="toggleDay(this.parentElement)">
         <div class="giorno-num">${g.num}</div>
@@ -631,7 +630,9 @@ function pianoRender() {
       const d = durata(b);
       const tilde = b.stima ? '<span class="stima">~</span>' : '';
       let tags = '';
-      if (b.tipo === 'davide') tags += `<span class="tag dav">🧭 Davide${b.tag ? ' · ' + esc(b.tag) : ''}</span>`;
+      if (b.tipo === 'davide' && b.assente) tags += `<span class="tag">📋 Organizza Davide · lui non viene</span>`;
+      else if (b.tipo === 'davide') tags += `<span class="tag dav">🧭 Davide${b.tag ? ' · ' + esc(b.tag) : ''}</span>`;
+      if (b.gestisce) tags += `<span class="tag flex">Prenotazione: ci pensa Davide</span>`;
       if (b.tipo === 'noi') tags += `<span class="tag" style="color:var(--sun)">💛 Noi</span>`;
       if (b.book) tags += `<span class="tag book">Da prenotare</span>`;
       if (b.flex) tags += `<span class="tag flex">Senza programma rigido</span>`;
@@ -679,7 +680,8 @@ function liberiRender() {
   const win = toMin(DAY_END) - toMin(DAY_START);
   let totFree = 0, totDav = 0, totNoi = 0, totLog = 0;
   const rows = GIORNI.map(g => {
-    const sum = tipo => g.blocchi.filter(b => b.tipo === tipo).reduce((s, b) => s + durata(b), 0);
+    // le attività organizzate da Davide a cui lui non viene (assente) contano come nostre
+    const sum = tipo => g.blocchi.filter(b => (b.assente ? 'noi' : b.tipo) === tipo).reduce((s, b) => s + durata(b), 0);
     const r = { g, lib: sum('libero'), dav: sum('davide'), noi: sum('noi'), log: sum('logistica'), volo: g.blocchi.some(b => b.tipo === 'volo') };
     totFree += r.lib; totDav += r.dav; totNoi += r.noi; totLog += r.log;
     return r;
@@ -788,10 +790,10 @@ const IDEE = [
       { tipo: 'variante', g: 4, slot: 'd4-mat', ora: '08:00', fine: '11:00', txt: 'Primo turno del mattino; Las Vistas slitta a ~11:15 (Davide l\'ha messa "senza programma rigido").' },
     ] },
   { id: 'teleferico', cat: 'natura', icon: '🚡', nome: 'Teleférico del Teide', zona: 'Dentro il Parco · D2',
-    desc: 'Funivia fino a 3.555 m in 8 minuti. Biglietto a orario, da prenotare online; chiude con vento forte. Per la vetta vera serve un permesso separato.',
-    facts: ['~1h30', 'Prenotare'], book: true, q: 'Teleferico del Teide',
+    desc: 'Funivia fino a 3.555 m in 8 minuti. Biglietto a orario, da prenotare online; chiude con vento forte. Per la vetta vera serve un permesso separato. Le prenotazioni del Teide le gestisce Davide: va chiesto a lui.',
+    facts: ['~1h30', 'Chiedere a Davide'], q: 'Teleferico del Teide',
     fit: [
-      { tipo: 'variante', g: 2, slot: null, ora: '10:30', fine: '12:00', txt: 'Dentro la "Salita al Teide" di Davide: corsa alle ~10:30, poi Roques de García come previsto.' },
+      { tipo: 'variante', g: 2, slot: null, ora: '10:30', fine: '12:00', txt: 'Dentro la salita in furgone con Davide: corsa alle ~10:30, poi Roques de García come previsto.' },
     ] },
   { id: 'adeje-paese', cat: 'borghi', icon: '⛪', nome: 'Adeje paese · Calle Grande', zona: 'Adeje centro · ~15 min',
     desc: 'Il paese vero sopra la costa: Calle Grande, chiesa di Santa Úrsula, Casa Fuerte. Una birra in piazza prima di salire da Davide.',
@@ -848,7 +850,7 @@ const BASE_SPESE = [
   { id: 'b2', cat: 'voli',    name: 'Ryanair TFS → BGY (2 adulti)', note: 'FR2831 · 19 Ott 05:50–11:05 · G8WW6E', eur: null },
   { id: 'b3', cat: 'voli',    name: 'Priorità + 2 bagagli a mano',  note: 'Solo Andrea · A/R',                    eur: null },
   { id: 'b4', cat: 'alloggi', name: "Lella's Home",                 note: 'Playa Paraíso · 4 notti · 15→19 Ott',  eur: null },
-  { id: 'b5', cat: 'attiv',   name: 'Neptuno · balene & delfini',   note: 'D3 · 10:00 · 3h · da prenotare',       eur: null },
+  { id: 'b5', cat: 'attiv',   name: 'Neptuno · balene & delfini',   note: 'D3 · 10:00 · 3h · prenota Davide',       eur: null },
   { id: 'b6', cat: 'cibo',    name: 'CHAR Fuego y Brasas',          note: 'D3 · cena importante · da prenotare',  eur: null },
   { id: 'b7', cat: 'cibo',    name: 'Aperitivo + cena fuori',       note: 'D1 · prima sera',                      eur: null },
   { id: 'b8', cat: 'cibo',    name: 'Pranzi (Duque, Roques, Los Cristianos)', note: 'D1–D4 · stima',              eur: null },
