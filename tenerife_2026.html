@@ -403,9 +403,15 @@ a { color: var(--ocean); }
 <div class="info-row"><span class="info-key">Host ufficiale</span><span class="info-val">Merlino 🐾 (coccole non negoziabili)</span></div>
 </div>
 
-<p class="section-label" style="margin-top:20px;">Da prenotare</p>
+<p class="section-label" style="margin-top:20px;">Prenotazioni · ci pensa Davide</p>
 <div class="info-card">
+<div class="info-row"><span class="info-key">Ven 16</span><span class="info-val">Teide · salita in furgone</span></div>
+<div class="info-row"><span class="info-key">Sab 17 · 10:00</span><span class="info-val">Neptuno · balene &amp; delfini (lui non viene)</span></div>
 <div class="info-row"><span class="info-key">Sab 17 · sera</span><span class="info-val">CHAR Fuego y Brasas · la cena importante</span></div>
+</div>
+
+<p class="section-label" style="margin-top:20px;">Da decidere</p>
+<div class="info-card">
 <div class="info-row"><span class="info-key">Lun 19 · ~03:45</span><span class="info-val">Transfer notturno per TFS (taxi o Davide?)</span></div>
 </div>
 
@@ -522,7 +528,7 @@ const GIORNI = [
         places: [{ label: 'Los Gigantes', q: 'Los Gigantes Tenerife' }] },
       { ora: '18:30', fine: '19:15', tipo: 'logistica', icon: '🚿', titolo: 'Rientro e doccia', desc: '~30 min da Los Gigantes a Playa Paraíso.', stima: true },
       { id: 'd3-sera', ora: '19:15', fine: '20:30', tipo: 'libero', icon: '⬜', titolo: 'Prima di cena', desc: 'Poco più di un\'ora: aperitivo per conto vostro?' },
-      { ora: '20:30', fine: '23:30', tipo: 'davide', icon: '🔥', titolo: 'CHAR Fuego y Brasas', desc: 'La cena importante del viaggio.', tag: 'da prenotare', book: true, stima: true,
+      { ora: '20:30', fine: '23:30', tipo: 'davide', icon: '🔥', titolo: 'CHAR Fuego y Brasas', desc: 'La cena importante del viaggio.', gestisce: true, stima: true,
         places: [{ label: 'CHAR Fuego y Brasas', q: 'CHAR Fuego y Brasas Tenerife' }] },
     ],
     notte: { nome: "Lella's Home", dove: 'Playa Paraíso · notte 3 di 4', q: LELLA_LL, ll: LELLA_LL },
@@ -851,7 +857,7 @@ const BASE_SPESE = [
   { id: 'b3', cat: 'voli',    name: 'Priorità + 2 bagagli a mano',  note: 'Solo Andrea · A/R',                    eur: null },
   { id: 'b4', cat: 'alloggi', name: "Lella's Home",                 note: 'Playa Paraíso · 4 notti · 15→19 Ott',  eur: null },
   { id: 'b5', cat: 'attiv',   name: 'Neptuno · balene & delfini',   note: 'D3 · 10:00 · 3h · prenota Davide',       eur: null },
-  { id: 'b6', cat: 'cibo',    name: 'CHAR Fuego y Brasas',          note: 'D3 · cena importante · da prenotare',  eur: null },
+  { id: 'b6', cat: 'cibo',    name: 'CHAR Fuego y Brasas',          note: 'D3 · cena importante · prenota Davide',  eur: null },
   { id: 'b7', cat: 'cibo',    name: 'Aperitivo + cena fuori',       note: 'D1 · prima sera',                      eur: null },
   { id: 'b8', cat: 'cibo',    name: 'Pranzi (Duque, Roques, Los Cristianos)', note: 'D1–D4 · stima',              eur: null },
   { id: 'b9', cat: 'trasp',   name: 'Transfer TFS ↔ Playa Paraíso', note: 'Arrivo 15/10 + partenza notturna 19/10', eur: null },
